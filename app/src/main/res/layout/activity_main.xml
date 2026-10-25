@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?attr/colorSurface">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textSize="28sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:textStyle="bold" />
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:layout_marginTop="24dp" android:background="@drawable/background_intro">
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/welcome" android:textSize="32sp" android:textColor="#FFFFFF" android:layout_marginTop="16dp" android:fontFamily="serif" />
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/intro" android:textSize="16sp" android:textColor="#E1EAE5" android:layout_marginTop="16dp"  />
+ </LinearLayout>
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/light" android:textSize="22sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:textStyle="bold" /><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/light_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="16dp"  />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/medium" android:textSize="22sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:textStyle="bold" /><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/medium_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="16dp"  />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dark" android:textSize="22sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:textStyle="bold" /><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dark_description" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="16dp"  />
+ <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/coming_soon" android:textSize="14sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="16dp"  />
+ </LinearLayout>
+</androidx.core.widget.NestedScrollView>

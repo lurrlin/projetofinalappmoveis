@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LumiBooks</string>
+    <string name="welcome">Uma luz. Uma nova história.</string>
+    <string name="intro">Descubra livros que combinam com a luz ao seu redor.</string>
+    <string name="light">Luz do dia</string>
+    <string name="light_description">Aventuras, fantasia e histórias leves para soltar a imaginação.</string>
+    <string name="medium">Meia-luz</string>
+    <string name="medium_description">Mistérios e dramas para despertar sua curiosidade.</string>
+    <string name="dark">Entre sombras</string>
+    <string name="dark_description">Suspense e terror para quem gosta de uma história sombria.</string>
+    <string name="coming_soon">Sua biblioteca está chegando. As recomendações pela luminosidade serão adicionadas nas próximas etapas.</string>
+</resources>
