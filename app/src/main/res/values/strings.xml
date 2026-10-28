@@ -8,5 +8,12 @@
     <string name="medium_description">Mistérios e dramas para despertar sua curiosidade.</string>
     <string name="dark">Entre sombras</string>
     <string name="dark_description">Suspense e terror para quem gosta de uma história sombria.</string>
-    <string name="coming_soon">Sua biblioteca está chegando. As recomendações pela luminosidade serão adicionadas nas próximas etapas.</string>
+    <string name="coming_soon">Explore o catálogo abaixo. As recomendações automáticas pela luminosidade chegam em uma próxima etapa.</string>
+    <string name="catalog_title">Explore a biblioteca</string>
+    <string name="see_details">Ver detalhes</string>
+    <string name="details_for">Ver detalhes de %1$s</string>
+    <string name="back_catalog">Voltar ao catálogo</string>
+    <string name="synopsis">Sobre a história</string>
+    <string name="book_not_found">Livro não encontrado.</string>
+    <string name="curation_note">Os climas de leitura são uma curadoria do LumiBooks. Eles não representam classificação indicativa. O aplicativo apresenta recomendações e resumos, sem o texto completo dos livros.</string>
 </resources>

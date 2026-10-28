@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="?attr/colorSurface">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+        <com.google.android.material.button.MaterialButton android:id="@+id/back_button"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:minHeight="48dp" android:text="@string/back_catalog" />
+        <TextView android:id="@+id/book_mood" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" />
+        <TextView android:id="@+id/book_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" android:textSize="32sp" android:fontFamily="serif" android:textColor="?attr/colorOnSurface" />
+        <TextView android:id="@+id/book_author" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:textSize="18sp" android:textColor="?attr/colorOnSurfaceVariant" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="32dp" android:text="@string/synopsis" android:textStyle="bold"
+            android:textSize="22sp" android:textColor="?attr/colorOnSurface" />
+        <TextView android:id="@+id/book_synopsis" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" android:textSize="18sp" android:textColor="?attr/colorOnSurface" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp" android:text="@string/curation_note"
+            android:textSize="14sp" android:textColor="?attr/colorOnSurfaceVariant" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
