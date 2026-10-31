@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
- android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?attr/colorSurface">
+ android:id="@+id/principal" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?attr/colorSurface">
  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
  <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textSize="28sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:textStyle="bold" />
  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:layout_marginTop="24dp" android:background="@drawable/background_intro">
@@ -14,7 +14,12 @@
  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
      android:layout_marginTop="24dp" android:text="@string/catalog_title"
      android:textSize="24sp" android:textStyle="bold" android:textColor="?attr/colorOnSurface" />
- <LinearLayout android:id="@+id/book_list" android:layout_width="match_parent"
+ <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/filtro_favoritos"
+     android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/somente_favoritos" />
+ <TextView android:id="@+id/estado_catalogo" android:layout_width="match_parent"
+     android:layout_height="wrap_content" android:text="@string/carregando_livros"
+     android:accessibilityLiveRegion="polite" android:textColor="?attr/colorOnSurface" />
+ <LinearLayout android:id="@+id/lista_livros" android:layout_width="match_parent"
      android:layout_height="wrap_content" android:orientation="vertical" />
  </LinearLayout>
 </androidx.core.widget.NestedScrollView>

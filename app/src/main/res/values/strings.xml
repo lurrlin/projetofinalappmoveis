@@ -16,4 +16,12 @@
     <string name="synopsis">Sobre a história</string>
     <string name="book_not_found">Livro não encontrado.</string>
     <string name="curation_note">Os climas de leitura são uma curadoria do LumiBooks. Eles não representam classificação indicativa. O aplicativo apresenta recomendações e resumos, sem o texto completo dos livros.</string>
+    <string name="somente_favoritos">Somente favoritos</string>
+    <string name="carregando_livros">Carregando livros…</string>
+    <string name="nenhum_favorito">Você ainda não tem favoritos. Abra um livro no catálogo para adicionar.</string>
+    <string name="adicionar_favorito">Adicionar aos favoritos</string>
+    <string name="remover_favorito">Remover dos favoritos</string>
+    <string name="favorito_salvo">Livro adicionado aos favoritos.</string>
+    <string name="favorito_removido">Livro removido dos favoritos.</string>
+    <string name="erro_banco">Não foi possível acessar os livros. Tente novamente.</string>
 </resources>
