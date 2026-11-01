@@ -8,7 +8,7 @@
     <string name="medium_description">Mistérios e dramas para despertar sua curiosidade.</string>
     <string name="dark">Entre sombras</string>
     <string name="dark_description">Suspense e terror para quem gosta de uma história sombria.</string>
-    <string name="coming_soon">Explore o catálogo abaixo. As recomendações automáticas pela luminosidade chegam em uma próxima etapa.</string>
+    <string name="coming_soon">Combine os filtros abaixo ou desmarque ambos para explorar todos os livros.</string>
     <string name="catalog_title">Explore a biblioteca</string>
     <string name="see_details">Ver detalhes</string>
     <string name="details_for">Ver detalhes de %1$s</string>
@@ -24,4 +24,20 @@
     <string name="favorito_salvo">Livro adicionado aos favoritos.</string>
     <string name="favorito_removido">Livro removido dos favoritos.</string>
     <string name="erro_banco">Não foi possível acessar os livros. Tente novamente.</string>
+    <string name="titulo_luminosidade">A luz escolhe o clima</string>
+    <string name="modo_manual">Simular luminosidade</string>
+    <string name="filtro_clima">Recomendar pela luminosidade</string>
+    <string name="origem_sensor">Sensor do celular • leitura real em lux</string>
+    <string name="origem_manual">Modo de demonstração • valor simulado de 0 a 1.000 lux</string>
+    <string name="sensor_indisponivel">Este aparelho não tem sensor de luz. Use a simulação abaixo.</string>
+    <string name="sensor_falhou">Não foi possível iniciar o sensor. A simulação foi ativada.</string>
+    <string name="sensor_sem_leitura">O sensor ainda não enviou uma leitura. Você pode ativar a simulação ou desmarcar o filtro de luminosidade.</string>
+    <string name="medidor_aguardando">Aguardando leitura de luminosidade</string>
+    <string name="descricao_medidor">Medidor do clima de leitura: %1$s</string>
+    <string name="leitura_sensor">%1$.0f lux • %2$s</string>
+    <string name="leitura_simulada">%1$.0f lux simulados • %2$s</string>
+    <string name="controle_luz_descricao">Luminosidade simulada, de zero a mil lux</string>
+    <string name="legenda_medidor">Da esquerda para a direita: sombras, meia-luz e luz do dia. O ponteiro indica o clima, não uma escala numérica.</string>
+    <string name="aguardando_recomendacoes">Aguardando a luz para recomendar. Para ver todos os livros, desmarque o filtro de luminosidade.</string>
+    <string name="sem_livros_clima">Nenhum livro com estes filtros. Desmarque “Somente favoritos” ou o filtro de luminosidade para explorar mais livros.</string>
 </resources>

@@ -1,6 +1,6 @@
 # LumiBooks
 
-Biblioteca interativa que recomendará livros conforme a luminosidade do ambiente.
+Biblioteca interativa que recomenda livros conforme a luminosidade do ambiente.
 Desenvolvida em Java com layouts XML no Android Studio.
 
 ## Etapas
@@ -16,9 +16,13 @@ Cada etapa será entregue separadamente para commit manual.
 
 ## Estado atual
 
-Etapas 1, 2 e 3 implementadas: apresentação, catálogo offline com seis livros e
+Etapas 1 a 4 implementadas: apresentação, catálogo offline com seis livros e
 tela de detalhes com autor, clima e sinopse. O botão “Ver detalhes” abre o livro
 selecionado; “Voltar ao catálogo” ou o voltar do Android retorna à lista.
+
+A tela inicial lê a luminosidade, mostra um medidor próprio e filtra livros pelo
+clima do ambiente. É possível combinar recomendações e favoritos ou desmarcar
+os dois filtros para acessar o catálogo inteiro.
 
 As sinopses são resumos escritos para o projeto. Os climas são uma curadoria,
 não uma classificação indicativa. Não há textos completos dos livros.
@@ -31,6 +35,13 @@ Código organizado em modelo (`model/Book`), catálogo (`data/BookCatalog`)
 e telas (`MainActivity` e `BookDetailsActivity`). `data/BancoLivros` cuida
 do SQLite. Novas variáveis e IDs de tela usam português; nomes exigidos pelo
 Android, como `onCreate`, seguem a API. As classes do catálogo anterior foram mantidas.
+
+`luminosidade/SensorLuminosidade` cuida do sensor;
+`luminosidade/ClassificadorLuminosidade` define as faixas e as recomendações;
+`view/MedidorLuminosidade` estende `View` e desenha os arcos e o ponteiro em
+`onDraw`, usando `Canvas` e `Paint`. Não é uma imagem pronta nem um medidor
+de biblioteca. O ponteiro indica uma das três categorias, não um valor numérico;
+o valor em lux é mostrado no texto. O medidor tem descrição para leitor de tela.
 
 ## Executar
 
@@ -49,13 +60,13 @@ Mantenha as versões de SDK e JDK indicadas pela configuração Gradle do projet
 
 ## Acompanhamento da avaliação
 
-| Critério | Situação após a etapa 3 |
+| Critério | Situação após a etapa 4 |
 | --- | --- |
 | Funcionamento geral | Catálogo e navegação implementados; validação no dispositivo pendente |
-| View customizada | Prevista na etapa 4; os layouts atuais não contam como esse requisito |
+| View customizada | Implementada: MedidorLuminosidade desenhado com Canvas e Paint |
 | Banco de dados | Implementado com SQLite: gravação e recuperação de livros e favoritos |
 | Geolocalização | Prevista na etapa 5 |
-| Sensores | Leitura real de luminosidade prevista na etapa 4 |
+| Sensores | TYPE_LIGHT integrado; teste em aparelho físico pendente |
 | Organização e documentação | Código separado e README atualizado a cada etapa |
 | Apresentação | Preparação na etapa 6; todos os integrantes devem conhecer a implementação e estar presentes |
 | Compilação automática e APK | GitHub Actions previsto na etapa 6 |
@@ -81,8 +92,50 @@ Limpar os dados ou desinstalar o aplicativo pode apagar os dados locais.
 
 ## Próximos requisitos
 
-- View customizada: medidor gráfico de luminosidade.
-- Banco de dados: livros, favoritos e histórico local.
-- Geolocalização: local de uma recomendação, com permissão do usuário.
-- Sensor: luminosidade real, com modo manual de demonstração como alternativa.
-- Entrega: README e APK gerado por GitHub Actions.
+- Etapa 5: geolocalização e histórico local das recomendações.
+- Etapa 6: validação final, apresentação, README final e APK gerado por GitHub Actions.
+
+## Luminosidade e recomendações
+
+As faixas são escolhas do projeto:
+
+| Primeira leitura ou simulação | Clima |
+| --- | --- |
+| De 0 até menos de 50 lux | Entre sombras |
+| De 50 até menos de 300 lux | Meia-luz |
+| A partir de 300 lux | Luz do dia |
+
+No sensor real, há uma margem para evitar mudanças repetidas: sombras só passa
+para meia-luz a partir de 60 lux; meia-luz só volta a sombras abaixo de 40 lux.
+Meia-luz passa a luz do dia a partir de 330 lux; luz do dia só volta abaixo de
+270 lux. Mudanças grandes podem pular diretamente de sombras para luz do dia
+ou vice-versa. O modo manual usa as faixas exatas da tabela.
+
+O sensor só fica registrado enquanto a tela inicial está em primeiro plano.
+Ao retornar, o aplicativo aguarda uma nova leitura. Leituras negativas, infinitas
+ou inválidas são descartadas. A lista é atualizada quando o clima muda, sem
+consultar o banco a cada evento do sensor.
+
+Sem sensor, o aplicativo ativa a simulação automaticamente. Uma falha ao
+registrar o sensor também ativa esse modo e mostra uma mensagem. Se o sensor
+demorar a enviar a primeira leitura, uma mensagem explica como usar a simulação
+ou consultar o catálogo inteiro. A simulação não substitui a demonstração do
+sensor real exigida pelo trabalho.
+
+## Conferir a etapa 4
+
+1. Ative “Simular luminosidade” e mova a barra para 0, 200 e 1.000 lux.
+2. Confira o ponteiro e os livros: terror, mistério/drama e aventura/fantasia.
+3. Desmarque “Recomendar pela luminosidade” para ver todos os seis livros.
+4. Combine o filtro de luminosidade com “Somente favoritos”; confira também
+   a mensagem quando nenhum favorito combina com o clima.
+5. Gire o aparelho: modo manual, valor simulado e filtros devem ser mantidos.
+6. Em aparelho com sensor, desative a simulação e varie a luz que chega ao sensor.
+   Confira que o valor é identificado como real e que os livros mudam.
+7. Abra um livro e volte; no modo real, a leitura deve ser retomada.
+8. Confira a tela em tema claro/escuro, com fonte ampliada e leitor de tela.
+
+Na etapa 4, a compilação, os testes locais e o lint passaram (zero erros,
+cinco avisos já existentes). Quatro testes novos cobrem faixas, estabilidade,
+leituras inválidas e recomendações. A aparência e o sensor real ainda precisam
+ser verificados em dispositivo; nenhum estava conectado durante esta etapa.

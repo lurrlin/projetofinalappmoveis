@@ -1,6 +1,9 @@
 package com.example.projetofinal;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.SeekBar;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,6 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.example.projetofinal.data.BancoLivros;
 import com.example.projetofinal.model.Book;
+import com.example.projetofinal.luminosidade.ClassificadorLuminosidade;
+import com.example.projetofinal.luminosidade.SensorLuminosidade;
+import com.example.projetofinal.view.MedidorLuminosidade;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +28,22 @@ public class MainActivity extends AppCompatActivity {
     private MaterialCheckBox filtroFavoritos;
     private TextView estadoCatalogo;
     private int versaoConsulta;
+    private SensorLuminosidade sensorLuminosidade;
+    private MedidorLuminosidade medidor;
+    private MaterialCheckBox modoManual;
+    private MaterialCheckBox filtroClima;
+    private SeekBar controleLuminosidade;
+    private TextView origemLuminosidade;
+    private TextView leituraLuminosidade;
+    private Book.Mood climaAtual;
+    private List<Book> livrosCarregados;
+    private boolean emPrimeiroPlano;
+    private final Handler temporizador = new Handler(Looper.getMainLooper());
+    private final Runnable avisoSemLeitura = () -> {
+        if (climaAtual == null && emPrimeiroPlano && !modoManual.isChecked()) {
+            origemLuminosidade.setText(R.string.sensor_sem_leitura);
+        }
+    };
 
     @Override protected void onCreate(Bundle estadoSalvo) {
         super.onCreate(estadoSalvo);
@@ -31,10 +53,34 @@ public class MainActivity extends AppCompatActivity {
         listaLivros = findViewById(R.id.lista_livros);
         filtroFavoritos = findViewById(R.id.filtro_favoritos);
         estadoCatalogo = findViewById(R.id.estado_catalogo);
+        medidor = findViewById(R.id.medidor_luminosidade);
+        modoManual = findViewById(R.id.modo_manual);
+        filtroClima = findViewById(R.id.filtro_clima);
+        controleLuminosidade = findViewById(R.id.controle_luminosidade);
+        origemLuminosidade = findViewById(R.id.origem_luminosidade);
+        leituraLuminosidade = findViewById(R.id.leitura_luminosidade);
+        sensorLuminosidade = new SensorLuminosidade(this, lux -> {
+            if (emPrimeiroPlano && !modoManual.isChecked()) receberLuminosidade(lux, false);
+        });
+        modoManual.setChecked(!sensorLuminosidade.disponivel()
+                || (estadoSalvo != null && estadoSalvo.getBoolean("modo_manual")));
+        modoManual.setEnabled(sensorLuminosidade.disponivel());
+        controleLuminosidade.setProgress(estadoSalvo == null ? 200
+                : estadoSalvo.getInt("lux_manual", 200));
+        filtroClima.setChecked(estadoSalvo == null || estadoSalvo.getBoolean("filtrar_clima", true));
         if (estadoSalvo != null) {
             filtroFavoritos.setChecked(estadoSalvo.getBoolean("somente_favoritos"));
         }
         filtroFavoritos.setOnCheckedChangeListener((botao, marcado) -> carregarLivros());
+        filtroClima.setOnCheckedChangeListener((botao, marcado) -> atualizarCatalogo());
+        modoManual.setOnCheckedChangeListener((botao, marcado) -> configurarLuminosidade());
+        controleLuminosidade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override public void onProgressChanged(SeekBar barra, int valor, boolean peloUsuario) {
+                if (modoManual.isChecked() && emPrimeiroPlano) receberLuminosidade(valor, true);
+            }
+            @Override public void onStartTrackingTouch(SeekBar barra) { }
+            @Override public void onStopTrackingTouch(SeekBar barra) { }
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.principal), (tela, margens) -> {
             Insets barras = margens.getInsets(WindowInsetsCompat.Type.systemBars());
             tela.setPadding(barras.left, barras.top, barras.right, barras.bottom);
@@ -44,17 +90,76 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onResume() {
         super.onResume();
+        emPrimeiroPlano = true;
+        configurarLuminosidade();
         carregarLivros();
     }
 
     @Override protected void onSaveInstanceState(Bundle estado) {
         estado.putBoolean("somente_favoritos", filtroFavoritos.isChecked());
+        estado.putBoolean("modo_manual", modoManual.isChecked());
+        estado.putBoolean("filtrar_clima", filtroClima.isChecked());
+        estado.putInt("lux_manual", controleLuminosidade.getProgress());
         super.onSaveInstanceState(estado);
+    }
+
+    @Override protected void onPause() {
+        emPrimeiroPlano = false;
+        sensorLuminosidade.parar();
+        temporizador.removeCallbacks(avisoSemLeitura);
+        super.onPause();
+    }
+
+    private void configurarLuminosidade() {
+        sensorLuminosidade.parar();
+        temporizador.removeCallbacks(avisoSemLeitura);
+        climaAtual = null;
+        medidor.definirClima(null);
+        leituraLuminosidade.setText(R.string.medidor_aguardando);
+        controleLuminosidade.setVisibility(modoManual.isChecked() ? View.VISIBLE : View.GONE);
+        atualizarCatalogo();
+        if (!emPrimeiroPlano) return;
+        if (modoManual.isChecked()) {
+            origemLuminosidade.setText(sensorLuminosidade.disponivel()
+                    ? R.string.origem_manual : R.string.sensor_indisponivel);
+            receberLuminosidade(controleLuminosidade.getProgress(), true);
+        } else {
+            origemLuminosidade.setText(R.string.origem_sensor);
+            if (sensorLuminosidade.iniciar()) {
+                temporizador.postDelayed(avisoSemLeitura, 5000);
+            } else {
+                modoManual.setChecked(true);
+                origemLuminosidade.setText(R.string.sensor_falhou);
+            }
+        }
+    }
+
+    private void receberLuminosidade(float lux, boolean simulada) {
+        temporizador.removeCallbacks(avisoSemLeitura);
+        Book.Mood novoClima = simulada ? ClassificadorLuminosidade.classificar(lux)
+                : ClassificadorLuminosidade.classificarSensor(lux, climaAtual);
+        if (!simulada) origemLuminosidade.setText(R.string.origem_sensor);
+        leituraLuminosidade.setText(getString(simulada ? R.string.leitura_simulada
+                : R.string.leitura_sensor, lux, getString(BookDetailsActivity.rotuloClima(novoClima))));
+        if (novoClima != climaAtual) {
+            climaAtual = novoClima;
+            medidor.definirClima(climaAtual);
+            atualizarCatalogo();
+        }
+    }
+
+    private void atualizarCatalogo() {
+        if (livrosCarregados == null) return;
+        List<Book> livros = filtroClima.isChecked()
+                ? ClassificadorLuminosidade.recomendar(livrosCarregados, climaAtual) : livrosCarregados;
+        exibirLivros(livros);
     }
 
     private void carregarLivros() {
         int consultaAtual = ++versaoConsulta;
         boolean somenteFavoritos = filtroFavoritos.isChecked();
+        livrosCarregados = null;
+        listaLivros.removeAllViews();
         estadoCatalogo.setVisibility(View.VISIBLE);
         estadoCatalogo.setText(R.string.carregando_livros);
         BancoLivros.EXECUTOR.execute(() -> {
@@ -62,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
                 List<Book> livros = banco.listar(somenteFavoritos);
                 runOnUiThread(() -> {
                     if (isDestroyed() || isFinishing() || consultaAtual != versaoConsulta) return;
-                    exibirLivros(livros);
+                    livrosCarregados = livros;
+                    atualizarCatalogo();
                 });
             } catch (RuntimeException erro) {
                 runOnUiThread(() -> {
@@ -77,7 +183,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void exibirLivros(List<Book> livros) {
         listaLivros.removeAllViews();
-        estadoCatalogo.setText(R.string.nenhum_favorito);
+        estadoCatalogo.setText(filtroClima.isChecked()
+                ? (climaAtual == null ? R.string.aguardando_recomendacoes : R.string.sem_livros_clima)
+                : R.string.nenhum_favorito);
         estadoCatalogo.setVisibility(livros.isEmpty() ? View.VISIBLE : View.GONE);
         for (Book livro : livros) {
             View item = getLayoutInflater().inflate(R.layout.item_book, listaLivros, false);
