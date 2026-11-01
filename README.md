@@ -16,7 +16,7 @@ Cada etapa será entregue separadamente para commit manual.
 
 ## Estado atual
 
-Etapas 1 a 4 implementadas: apresentação, catálogo offline com seis livros e
+Etapas 1 a 5 implementadas: apresentação, catálogo offline com seis livros e
 tela de detalhes com autor, clima e sinopse. O botão “Ver detalhes” abre o livro
 selecionado; “Voltar ao catálogo” ou o voltar do Android retorna à lista.
 
@@ -60,12 +60,12 @@ Mantenha as versões de SDK e JDK indicadas pela configuração Gradle do projet
 
 ## Acompanhamento da avaliação
 
-| Critério | Situação após a etapa 4 |
+| Critério | Situação após a etapa 5 |
 | --- | --- |
 | Funcionamento geral | Catálogo e navegação implementados; validação no dispositivo pendente |
 | View customizada | Implementada: MedidorLuminosidade desenhado com Canvas e Paint |
-| Banco de dados | Implementado com SQLite: gravação e recuperação de livros e favoritos |
-| Geolocalização | Prevista na etapa 5 |
+| Banco de dados | SQLite: livros, favoritos e histórico; migração e persistência testadas no emulador |
+| Geolocalização | Coleta opcional em primeiro plano e registro das coordenadas; conferência real no celular pendente |
 | Sensores | TYPE_LIGHT integrado; teste em aparelho físico pendente |
 | Organização e documentação | Código separado e README atualizado a cada etapa |
 | Apresentação | Preparação na etapa 6; todos os integrantes devem conhecer a implementação e estar presentes |
@@ -87,12 +87,11 @@ dados preenchidos e presença dos três climas. Execute
 O teste `BancoLivrosTest` usa um banco separado e verifica carga inicial,
 persistência ao reabrir, remoção e ausência de duplicação. Precisa de emulador
 ou celular: `gradlew.bat :app:connectedDebugAndroidTest`.
-Não foi executado nesta etapa por ausência de dispositivo conectado.
+Foi executado com sucesso no emulador durante a etapa 5.
 Limpar os dados ou desinstalar o aplicativo pode apagar os dados locais.
 
 ## Próximos requisitos
 
-- Etapa 5: geolocalização e histórico local das recomendações.
 - Etapa 6: validação final, apresentação, README final e APK gerado por GitHub Actions.
 
 ## Luminosidade e recomendações
@@ -139,3 +138,64 @@ Na etapa 4, a compilação, os testes locais e o lint passaram (zero erros,
 cinco avisos já existentes). Quatro testes novos cobrem faixas, estabilidade,
 leituras inválidas e recomendações. A aparência e o sensor real ainda precisam
 ser verificados em dispositivo; nenhum estava conectado durante esta etapa.
+
+## Histórico e localização — etapa 5
+
+Nos detalhes, toque em “Registrar no histórico”. A tela mostra o livro e a
+luminosidade capturada quando os detalhes foram abertos. Toque em “Salvar registro”.
+O registro guarda data/hora do salvamento, livro, clima do ambiente, luminosidade
+e se a leitura foi real ou simulada. Se não havia leitura, isso aparece no histórico;
+nenhum valor de luminosidade é inventado.
+
+“Incluir minha localização neste registro” começa desmarcado. Ao marcar e salvar,
+o Android solicita permissão. O aplicativo aceita a permissão aproximada ou precisa,
+consulta os provedores disponíveis e aguarda até 20 segundos. São aceitas posições
+com até 30 segundos de idade e precisão informada pelo sistema. O histórico exibe
+latitude, longitude e precisão estimada em metros; não há mapa ou busca de endereços.
+
+Se a permissão for negada, o serviço estiver desligado ou não houver posição
+disponível no prazo, o livro é salvo sem coordenadas e uma mensagem explica o motivo.
+Ao sair da tela durante a busca, ela é cancelada; ao retornar, toque novamente em salvar.
+Não há coleta de localização em segundo plano. Os dados ficam no SQLite; o banco foi
+excluído do backup automático e da transferência entre dispositivos nas regras do Android.
+
+O botão “Ver histórico” aparece no catálogo e na tela de registro. A lista mostra
+até 100 registros mais recentes; os demais continuam no banco. Cada novo formulário
+representa um registro. Seu identificador é preservado ao girar a tela para evitar
+duplicações durante o salvamento.
+
+### Organização e banco
+
+- `SalvarHistoricoActivity`: formulário, permissão e salvamento.
+- `HistoricoActivity`: consulta e apresentação do histórico.
+- `localizacao/Localizador`: busca pontual, limite de espera e cancelamento.
+- `model/RegistroHistorico`: dados de um registro.
+- `data/BancoLivros`: versão 2, com tabela de histórico e chave para o livro.
+
+A migração da versão 1 para a 2 apenas acrescenta a tabela e o índice do histórico,
+preservando os livros e os favoritos. As gravações continuam fora da interface.
+
+### Roteiro de conferência
+
+1. Salve um livro sem marcar localização e confira o histórico.
+2. Salve com luminosidade simulada e confira a identificação de simulação.
+3. Marque localização, conceda permissão e confira coordenadas e precisão.
+4. Teste também a permissão aproximada quando oferecida pelo Android.
+5. Negue a permissão ou desligue a localização: o registro deve ser salvo sem coordenadas.
+6. Saia ou gire a tela durante a busca; confirme que a coleta é cancelada.
+7. Gire a tela depois de salvar; o mesmo formulário não deve criar duplicação.
+8. Feche e reabra o aplicativo: histórico e favoritos devem continuar disponíveis.
+
+### Verificações realizadas
+
+Compilação, testes locais e lint passaram (zero erros, quatro avisos de recursos
+sem uso e fundos sobrepostos). Os cinco testes instrumentados passaram no emulador,
+incluindo favoritos, migração da versão 1, persistência do histórico com e sem
+coordenadas, ordenação, prevenção de duplicação e validação dos registros.
+Os testes usam bancos separados, removidos ao final.
+
+O comando Gradle de testes conectados não pôde executar em modo offline por faltar
+o componente `gradle-work-action` no cache. Os APKs compilados foram instalados no
+emulador e os testes foram executados diretamente pelo AndroidJUnitRunner.
+A interação com permissões, a aparência das novas telas e a obtenção de localização
+real ainda precisam da conferência descrita acima.

@@ -43,6 +43,9 @@
  <TextView android:id="@+id/estado_catalogo" android:layout_width="match_parent"
      android:layout_height="wrap_content" android:text="@string/carregando_livros"
      android:accessibilityLiveRegion="polite" android:textColor="?attr/colorOnSurface" />
+ <com.google.android.material.button.MaterialButton android:id="@+id/botao_ver_historico"
+     android:layout_width="match_parent" android:layout_height="wrap_content"
+     android:minHeight="48dp" android:text="@string/ver_historico" />
  <LinearLayout android:id="@+id/lista_livros" android:layout_width="match_parent"
      android:layout_height="wrap_content" android:orientation="vertical" />
  </LinearLayout>

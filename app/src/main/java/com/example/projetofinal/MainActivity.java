@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView origemLuminosidade;
     private TextView leituraLuminosidade;
     private Book.Mood climaAtual;
+    private Float ultimaLuminosidade;
     private List<Book> livrosCarregados;
     private boolean emPrimeiroPlano;
     private final Handler temporizador = new Handler(Looper.getMainLooper());
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         listaLivros = findViewById(R.id.lista_livros);
         filtroFavoritos = findViewById(R.id.filtro_favoritos);
         estadoCatalogo = findViewById(R.id.estado_catalogo);
+        findViewById(R.id.botao_ver_historico).setOnClickListener(tela ->
+                startActivity(new Intent(this, HistoricoActivity.class)));
         medidor = findViewById(R.id.medidor_luminosidade);
         modoManual = findViewById(R.id.modo_manual);
         filtroClima = findViewById(R.id.filtro_clima);
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         sensorLuminosidade.parar();
         temporizador.removeCallbacks(avisoSemLeitura);
         climaAtual = null;
+        ultimaLuminosidade = null;
         medidor.definirClima(null);
         leituraLuminosidade.setText(R.string.medidor_aguardando);
         controleLuminosidade.setVisibility(modoManual.isChecked() ? View.VISIBLE : View.GONE);
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void receberLuminosidade(float lux, boolean simulada) {
+        ultimaLuminosidade = lux;
         temporizador.removeCallbacks(avisoSemLeitura);
         Book.Mood novoClima = simulada ? ClassificadorLuminosidade.classificar(lux)
                 : ClassificadorLuminosidade.classificarSensor(lux, climaAtual);
@@ -198,6 +203,11 @@ public class MainActivity extends AppCompatActivity {
             detalhes.setOnClickListener(tela -> {
                 Intent destino = new Intent(this, BookDetailsActivity.class);
                 destino.putExtra(BookDetailsActivity.EXTRA_ID_LIVRO, livro.getId());
+                if (ultimaLuminosidade != null && climaAtual != null) {
+                    destino.putExtra(SalvarHistoricoActivity.EXTRA_LUX, ultimaLuminosidade.floatValue());
+                    destino.putExtra(SalvarHistoricoActivity.EXTRA_CLIMA, climaAtual.name());
+                    destino.putExtra(SalvarHistoricoActivity.EXTRA_SIMULADA, modoManual.isChecked());
+                }
                 startActivity(destino);
             });
             listaLivros.addView(item);

@@ -1,6 +1,7 @@
 package com.example.projetofinal;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -39,6 +40,11 @@ public class BookDetailsActivity extends AppCompatActivity {
             return;
         }
         botaoFavorito.setOnClickListener(tela -> salvarFavorito());
+        findViewById(R.id.botao_registrar).setOnClickListener(tela -> {
+            Intent destino = new Intent(this, SalvarHistoricoActivity.class);
+            if (getIntent().getExtras() != null) destino.putExtras(getIntent().getExtras());
+            startActivity(destino);
+        });
         BancoLivros.EXECUTOR.execute(() -> {
             try {
                 Book livro = banco.buscar(identificador);
@@ -56,6 +62,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.sinopse_livro)).setText(livro.getSynopsis());
                     favorito = favoritoSalvo;
                     atualizarBotao();
+                    findViewById(R.id.botao_registrar).setEnabled(true);
                 });
             } catch (RuntimeException erro) {
                 runOnUiThread(() -> {

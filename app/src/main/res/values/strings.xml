@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="app_name">LumiBooks</string>
     <string name="welcome">Uma luz. Uma nova história.</string>
     <string name="intro">Descubra livros que combinam com a luz ao seu redor.</string>
@@ -40,4 +40,27 @@
     <string name="legenda_medidor">Da esquerda para a direita: sombras, meia-luz e luz do dia. O ponteiro indica o clima, não uma escala numérica.</string>
     <string name="aguardando_recomendacoes">Aguardando a luz para recomendar. Para ver todos os livros, desmarque o filtro de luminosidade.</string>
     <string name="sem_livros_clima">Nenhum livro com estes filtros. Desmarque “Somente favoritos” ou o filtro de luminosidade para explorar mais livros.</string>
+    <string name="registrar_historico">Registrar no histórico</string>
+    <string name="ver_historico">Ver histórico</string>
+    <string name="titulo_historico">Seu histórico de leitura</string>
+    <string name="incluir_localizacao">Incluir minha localização neste registro</string>
+    <string name="explicacao_registro">Salve este livro com a luminosidade do momento em que abriu os detalhes. A localização é opcional e será obtida ao salvar. Nenhum texto completo do livro é armazenado.</string>
+    <string name="privacidade_localizacao">Se marcar a opção, pediremos acesso à localização. Sem permissão ou sem sinal, salvaremos sem coordenadas. A coleta só ocorre nesta tela; os registros ficam no banco local.</string>
+    <string name="salvar_registro">Salvar registro</string>
+    <string name="buscando_localizacao">Buscando localização… Isso pode levar até 20 segundos.</string>
+    <string name="salvando_historico">Salvando registro…</string>
+    <string name="salvo_com_local">Registro salvo com localização.</string>
+    <string name="salvo_sem_local">Registro salvo sem localização.</string>
+    <string name="salvo_permissao_negada">Permissão não concedida. Registro salvo sem localização.</string>
+    <string name="salvo_local_indisponivel">Localização indisponível. Registro salvo sem coordenadas.</string>
+    <string name="localizacao_cancelada">A busca de localização foi cancelada ao sair da tela. Toque em salvar para tentar novamente.</string>
+    <string name="registro_ja_salvo">Este registro já foi salvo no histórico.</string>
+    <string name="erro_historico">Não foi possível acessar o histórico. Volte e tente novamente.</string>
+    <string name="historico_vazio">Nenhum registro ainda. Abra um livro e toque em “Registrar no histórico”.</string>
+    <string name="historico_limite">Até 100 registros mais recentes, do mais novo para o mais antigo.</string>
+    <string name="sem_leitura_registro">Catálogo consultado sem leitura de luminosidade.</string>
+    <string name="registro_sem_local">Sem localização neste registro.</string>
+    <string name="coordenadas_registro">Latitude: %1$.5f • Longitude: %2$.5f\nPrecisão estimada: %3$.0f metros</string>
+    <string name="item_historico_texto">%1$s\n%2$s\n%3$s\n%4$s</string>
+    <string name="voltar">Voltar</string>
 </resources>

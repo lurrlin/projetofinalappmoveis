@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/principal" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<com.google.android.material.button.MaterialButton android:id="@+id/botao_voltar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/voltar" />
+<TextView android:id="@+id/titulo_livro" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="28sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" />
+<TextView android:id="@+id/contexto_registro" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="16sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" />
+<TextView android:id="@+id/estado_registro" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/carregando_livros" android:textSize="16sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/privacidade_localizacao" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="16dp" />
+<com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/incluir_localizacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/incluir_localizacao" android:enabled="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/botao_salvar_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/salvar_registro" android:enabled="false" />
+<com.google.android.material.button.MaterialButton android:id="@+id/botao_ver_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ver_historico" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
