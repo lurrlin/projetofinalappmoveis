@@ -1,0 +1,65 @@
+name: Compilar LumiBooks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lumibooks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    name: Testar e gerar APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Baixar o projeto
+        uses: actions/checkout@v4
+
+      - name: Preparar Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Preparar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar as ferramentas do projeto
+        run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
+
+      - name: Preparar Gradle e validar o wrapper
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Executar testes, analisar e compilar
+        run: bash ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest --no-daemon --stacktrace
+
+      - name: Preparar APK para entrega
+        run: |
+          mkdir -p build/entrega
+          cp app/build/outputs/apk/debug/app-debug.apk build/entrega/LumiBooks.apk
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: LumiBooks-APK
+          path: build/entrega/LumiBooks.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Disponibilizar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LumiBooks-relatorios
+          path: |
+            app/build/reports/tests/
+            app/build/test-results/
+            app/build/reports/lint-results-debug.*
+          if-no-files-found: warn
+          retention-days: 14

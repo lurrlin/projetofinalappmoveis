@@ -38,10 +38,11 @@ public final class MedidorLuminosidade extends View {
         super.onDraw(tela);
         float largura = getWidth() - getPaddingLeft() - getPaddingRight();
         float altura = getHeight() - getPaddingTop() - getPaddingBottom();
-        float raio = Math.min(largura / 2f - 16, altura - 24);
+        // A folga acompanha o raio para não cortar o traço em telas de alta densidade.
+        float raio = Math.min(largura / 2.2f, altura / 1.2f);
         if (raio <= 0) return;
         float centroX = getPaddingLeft() + largura / 2f;
-        float centroY = getPaddingTop() + altura - 12;
+        float centroY = getPaddingTop() + altura - raio * 0.1f;
         arco.set(centroX - raio, centroY - raio, centroX + raio, centroY + raio);
         pincel.setStyle(Paint.Style.STROKE);
         pincel.setStrokeWidth(raio * 0.13f);
