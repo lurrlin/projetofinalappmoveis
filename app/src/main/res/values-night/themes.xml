@@ -2,6 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Projetofinal" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/verde_lumibooks_claro</item>
+        <item name="colorSurface">#151D19</item>
+        <item name="colorSurfaceVariant">#25362C</item>
+        <item name="colorOutlineVariant">#3C5143</item>
+        <item name="colorSecondaryContainer">#334E3F</item>
+        <item name="colorOnSecondaryContainer">#DAEDDD</item>
         <item name="android:windowBackground">?attr/colorSurface</item>
     </style>
 </resources>

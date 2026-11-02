@@ -25,7 +25,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
 
     // Nome separado permite testar sem alterar o banco usado pelo usuário.
     public BancoLivros(Context contexto, String nomeBanco) {
-        super(contexto.getApplicationContext(), nomeBanco, null, 2);
+        super(contexto.getApplicationContext(), nomeBanco, null, 3);
     }
 
     @Override public void onConfigure(SQLiteDatabase banco) {
@@ -35,7 +35,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
     @Override public void onCreate(SQLiteDatabase banco) {
         banco.execSQL("CREATE TABLE livros (id TEXT PRIMARY KEY, titulo TEXT NOT NULL, "
                 + "autor TEXT NOT NULL, clima TEXT NOT NULL, sinopse TEXT NOT NULL, "
-                + "favorito INTEGER NOT NULL DEFAULT 0 CHECK(favorito IN (0, 1)))");
+                + "favorito INTEGER NOT NULL DEFAULT 0 CHECK(favorito IN (0, 1)), url_capa TEXT NOT NULL DEFAULT '')");
         for (Book livro : BookCatalog.getAll()) {
             ContentValues valores = new ContentValues();
             valores.put("id", livro.getId());
@@ -43,6 +43,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
             valores.put("autor", livro.getAuthor());
             valores.put("clima", livro.getMood().name());
             valores.put("sinopse", livro.getSynopsis());
+            valores.put("url_capa", CapasIniciais.obterUrl(livro.getId()));
             banco.insertOrThrow("livros", null, valores);
         }
         criarHistorico(banco);
@@ -50,6 +51,14 @@ public final class BancoLivros extends SQLiteOpenHelper {
 
     @Override public void onUpgrade(SQLiteDatabase banco, int versaoAntiga, int versaoNova) {
         if (versaoAntiga < 2) criarHistorico(banco);
+        if (versaoAntiga < 3) {
+            banco.execSQL("ALTER TABLE livros ADD COLUMN url_capa TEXT NOT NULL DEFAULT ''");
+            for (Book livro : BookCatalog.getAll()) {
+                ContentValues valores = new ContentValues();
+                valores.put("url_capa", CapasIniciais.obterUrl(livro.getId()));
+                banco.update("livros", valores, "id = ?", new String[]{livro.getId()});
+            }
+        }
     }
 
     private void criarHistorico(SQLiteDatabase banco) {
@@ -162,6 +171,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
                 cursor.getString(cursor.getColumnIndexOrThrow("autor")),
                 Book.Mood.valueOf(cursor.getString(cursor.getColumnIndexOrThrow("clima"))),
-                cursor.getString(cursor.getColumnIndexOrThrow("sinopse")));
+                cursor.getString(cursor.getColumnIndexOrThrow("sinopse")),
+                cursor.getString(cursor.getColumnIndexOrThrow("url_capa")));
     }
 }

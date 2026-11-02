@@ -71,7 +71,8 @@ public class HistoricoBancoTest {
             try (BancoLivros banco = new BancoLivros(contexto, nome)) {
                 assertEquals(6, banco.listar(false).size());
                 assertTrue(banco.ehFavorito("o-hobbit"));
-                assertEquals(2, banco.getReadableDatabase().getVersion());
+                assertEquals(3, banco.getReadableDatabase().getVersion());
+                assertTrue(banco.buscar("o-hobbit").getUrlCapa().startsWith("https://covers.openlibrary.org/"));
                 assertTrue(banco.listarHistorico().isEmpty());
                 banco.salvarRegistro(new RegistroHistorico("apos-migracao", "o-hobbit", "", 1000,
                         null, null, false, null, null, null));

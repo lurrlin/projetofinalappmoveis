@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.button.MaterialButton;
 import com.example.projetofinal.data.BancoLivros;
 import com.example.projetofinal.model.Book;
+import com.example.projetofinal.ui.CarregadorCapas;
 
 public class BookDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_ID_LIVRO = "book_id";
@@ -57,6 +58,7 @@ public class BookDetailsActivity extends AppCompatActivity {
                         return;
                     }
                     ((TextView) findViewById(R.id.titulo_livro)).setText(livro.getTitle());
+                    CarregadorCapas.carregar(findViewById(R.id.capa_livro), livro.getUrlCapa());
                     ((TextView) findViewById(R.id.autor_livro)).setText(livro.getAuthor());
                     ((TextView) findViewById(R.id.clima_livro)).setText(rotuloClima(livro.getMood()));
                     ((TextView) findViewById(R.id.sinopse_livro)).setText(livro.getSynopsis());

@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_descobrir" android:title="@string/aba_descobrir" android:icon="@drawable/icone_livro"/>
+    <item android:id="@+id/menu_favoritos" android:title="@string/aba_favoritos" android:icon="@drawable/icone_coracao"/>
+    <item android:id="@+id/menu_historico" android:title="@string/ver_historico" android:icon="@drawable/icone_historico"/>
+</menu>

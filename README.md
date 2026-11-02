@@ -29,12 +29,29 @@ precisam ser confirmadas pelo grupo.
 
 ## Como usar
 
+### Nova interface — branch melhorias
+
+A navegação inferior reúne Descobrir, Minha estante e Histórico. As capas aparecem
+nos cartões e nos detalhes; o medidor ficou compacto e os controles estão em
+“Ajustar ambiente”. Minha estante mostra os favoritos sem restringir pelo clima.
+
+As capas vêm da [Open Library](https://openlibrary.org/developers/api), com IDs
+conferidos pela busca pública. Algumas imagens são de edições em inglês; os títulos
+e resumos do catálogo continuam em português. A primeira carga requer internet.
+As imagens ficam em cache local; sem imagem ou conexão, aparece um símbolo de livro.
+O banco está na versão 3 e a migração mantém favoritos e histórico.
+
+Este primeiro commit visual ainda usa seis livros e as recomendações por luz.
+Os próximos commits serão a importação do catálogo e as recomendações que priorizam
+histórico e favoritos. Não foi identificada documentação pública oficial atual
+para uma integração de catálogo do Skoob; por isso a alternativa adotada foi Open Library.
+
 1. Abra o LumiBooks. O sensor começa a medir a luz na tela inicial.
 2. Veja o clima no medidor e os livros recomendados.
 3. Para testar manualmente, marque **Simular luminosidade** e mova a barra.
-4. Desmarque **Recomendar pela luminosidade** para explorar o catálogo inteiro.
+4. Em **Ajustar ambiente**, desmarque **Recomendar pela luminosidade** para explorar o catálogo inteiro.
 5. Abra **Ver detalhes** para ler a sinopse e adicionar ou remover um favorito.
-6. Use **Somente favoritos** para filtrar sua seleção. Os filtros podem ser combinados.
+6. Use **Minha estante** na navegação inferior para acessar os favoritos.
 7. Nos detalhes, toque em **Registrar no histórico** e depois **Salvar registro**.
 8. Marque a opção de localização apenas se quiser incluí-la.
 9. Acesse **Ver histórico** no catálogo ou na tela de registro.
@@ -148,7 +165,9 @@ mapa ou endereço.
 Se a permissão for negada, o serviço estiver desligado ou a posição não chegar,
 o registro é salvo sem coordenadas, com uma mensagem explicativa. Sair da tela
 durante a busca cancela a coleta; é necessário tocar em salvar novamente.
-Não há localização em segundo plano ou envio de dados a um servidor. O banco
+Não há localização em segundo plano ou envio de histórico e coordenadas a um servidor.
+O download de capas faz requisições à Open Library com o identificador da capa,
+sem enviar o histórico, os favoritos ou a localização. O banco
 foi excluído do backup automático e da transferência entre dispositivos nas regras
 do Android. Limpar os dados ou desinstalar o aplicativo pode apagá-lo.
 

@@ -1,21 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="app_name">LumiBooks</string>
-    <string name="welcome">Uma luz. Uma nova história.</string>
-    <string name="intro">Descubra livros que combinam com a luz ao seu redor.</string>
     <string name="light">Luz do dia</string>
-    <string name="light_description">Aventuras, fantasia e histórias leves para soltar a imaginação.</string>
     <string name="medium">Meia-luz</string>
-    <string name="medium_description">Mistérios e dramas para despertar sua curiosidade.</string>
     <string name="dark">Entre sombras</string>
-    <string name="dark_description">Suspense e terror para quem gosta de uma história sombria.</string>
-    <string name="coming_soon">Combine os filtros abaixo ou desmarque ambos para explorar todos os livros.</string>
-    <string name="catalog_title">Explore a biblioteca</string>
-    <string name="see_details">Ver detalhes</string>
     <string name="details_for">Ver detalhes de %1$s</string>
-    <string name="back_catalog">Voltar ao catálogo</string>
     <string name="synopsis">Sobre a história</string>
     <string name="book_not_found">Livro não encontrado.</string>
-    <string name="curation_note">Os climas de leitura são uma curadoria do LumiBooks. Eles não representam classificação indicativa. O aplicativo apresenta recomendações e resumos, sem o texto completo dos livros.</string>
     <string name="somente_favoritos">Somente favoritos</string>
     <string name="carregando_livros">Carregando livros…</string>
     <string name="nenhum_favorito">Você ainda não tem favoritos. Abra um livro no catálogo para adicionar.</string>
@@ -24,7 +14,6 @@
     <string name="favorito_salvo">Livro adicionado aos favoritos.</string>
     <string name="favorito_removido">Livro removido dos favoritos.</string>
     <string name="erro_banco">Não foi possível acessar os livros. Tente novamente.</string>
-    <string name="titulo_luminosidade">A luz escolhe o clima</string>
     <string name="modo_manual">Simular luminosidade</string>
     <string name="filtro_clima">Recomendar pela luminosidade</string>
     <string name="origem_sensor">Sensor do celular • leitura real em lux</string>
@@ -37,7 +26,6 @@
     <string name="leitura_sensor">%1$.0f lux • %2$s</string>
     <string name="leitura_simulada">%1$.0f lux simulados • %2$s</string>
     <string name="controle_luz_descricao">Luminosidade simulada, de zero a mil lux</string>
-    <string name="legenda_medidor">Da esquerda para a direita: sombras, meia-luz e luz do dia. O ponteiro indica o clima, não uma escala numérica.</string>
     <string name="aguardando_recomendacoes">Aguardando a luz para recomendar. Para ver todos os livros, desmarque o filtro de luminosidade.</string>
     <string name="sem_livros_clima">Nenhum livro com estes filtros. Desmarque “Somente favoritos” ou o filtro de luminosidade para explorar mais livros.</string>
     <string name="registrar_historico">Registrar no histórico</string>
@@ -63,4 +51,14 @@
     <string name="coordenadas_registro">Latitude: %1$.5f • Longitude: %2$.5f\nPrecisão estimada: %3$.0f metros</string>
     <string name="item_historico_texto">%1$s\n%2$s\n%3$s\n%4$s</string>
     <string name="voltar">Voltar</string>
+    <string name="aba_descobrir">Descobrir</string>
+    <string name="aba_favoritos">Minha estante</string>
+    <string name="titulo_descobrir">Encontre sua\npróxima história.</string>
+    <string name="subtitulo_descobrir">Um livro para cada momento.</string>
+    <string name="ajustar_luz">Ajustar ambiente</string>
+    <string name="titulo_selecao">Explore os livros</string>
+    <string name="fonte_capas">Capas: Open Library. A imagem pode ser de uma edição em outro idioma.</string>
+    <string name="detalhes_curto">Conhecer livro</string>
+    <string name="luz_compacta">O clima da sua leitura</string>
+    <string name="favoritos_titulo">Sua estante,\ndo seu jeito.</string>
 </resources>

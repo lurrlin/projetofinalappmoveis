@@ -9,13 +9,19 @@ public final class Book {
     private final String author;
     private final Mood mood;
     private final String synopsis;
+    private final String urlCapa;
 
     public Book(String id, String title, String author, Mood mood, String synopsis) {
+        this(id, title, author, mood, synopsis, "");
+    }
+
+    public Book(String id, String title, String author, Mood mood, String synopsis, String urlCapa) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.mood = mood;
         this.synopsis = synopsis;
+        this.urlCapa = urlCapa;
     }
 
     public String getId() { return id; }
@@ -23,4 +29,5 @@ public final class Book {
     public String getAuthor() { return author; }
     public Mood getMood() { return mood; }
     public String getSynopsis() { return synopsis; }
+    public String getUrlCapa() { return urlCapa; }
 }

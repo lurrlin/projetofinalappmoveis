@@ -21,6 +21,8 @@ import com.example.projetofinal.luminosidade.ClassificadorLuminosidade;
 import com.example.projetofinal.luminosidade.SensorLuminosidade;
 import com.example.projetofinal.view.MedidorLuminosidade;
 import java.util.List;
+import com.example.projetofinal.ui.CarregadorCapas;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private BancoLivros banco;
@@ -54,8 +56,23 @@ public class MainActivity extends AppCompatActivity {
         listaLivros = findViewById(R.id.lista_livros);
         filtroFavoritos = findViewById(R.id.filtro_favoritos);
         estadoCatalogo = findViewById(R.id.estado_catalogo);
-        findViewById(R.id.botao_ver_historico).setOnClickListener(tela ->
-                startActivity(new Intent(this, HistoricoActivity.class)));
+        findViewById(R.id.botao_ajustar_luz).setOnClickListener(tela -> {
+            View ajustes = findViewById(R.id.painel_ajustes_luz);
+            ajustes.setVisibility(ajustes.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        });
+        BottomNavigationView navegacao = findViewById(R.id.navegacao);
+        navegacao.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_historico) {
+                startActivity(new Intent(this, HistoricoActivity.class));
+                return false;
+            }
+            boolean favoritos = item.getItemId() == R.id.menu_favoritos;
+            if (favoritos) filtroClima.setChecked(false);
+            filtroFavoritos.setChecked(favoritos);
+            ((TextView) findViewById(R.id.titulo_inicio)).setText(favoritos
+                    ? R.string.favoritos_titulo : R.string.titulo_descobrir);
+            return true;
+        });
         medidor = findViewById(R.id.medidor_luminosidade);
         modoManual = findViewById(R.id.modo_manual);
         filtroClima = findViewById(R.id.filtro_clima);
@@ -73,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         filtroClima.setChecked(estadoSalvo == null || estadoSalvo.getBoolean("filtrar_clima", true));
         if (estadoSalvo != null) {
             filtroFavoritos.setChecked(estadoSalvo.getBoolean("somente_favoritos"));
+            findViewById(R.id.painel_ajustes_luz).setVisibility(
+                    estadoSalvo.getBoolean("ajustes_abertos") ? View.VISIBLE : View.GONE);
         }
         filtroFavoritos.setOnCheckedChangeListener((botao, marcado) -> carregarLivros());
         filtroClima.setOnCheckedChangeListener((botao, marcado) -> atualizarCatalogo());
@@ -100,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onSaveInstanceState(Bundle estado) {
         estado.putBoolean("somente_favoritos", filtroFavoritos.isChecked());
+        estado.putBoolean("ajustes_abertos", findViewById(R.id.painel_ajustes_luz).getVisibility() == View.VISIBLE);
         estado.putBoolean("modo_manual", modoManual.isChecked());
         estado.putBoolean("filtrar_clima", filtroClima.isChecked());
         estado.putInt("lux_manual", controleLuminosidade.getProgress());
@@ -194,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         estadoCatalogo.setVisibility(livros.isEmpty() ? View.VISIBLE : View.GONE);
         for (Book livro : livros) {
             View item = getLayoutInflater().inflate(R.layout.item_book, listaLivros, false);
+            CarregadorCapas.carregar(item.findViewById(R.id.capa_livro), livro.getUrlCapa());
             ((TextView) item.findViewById(R.id.titulo_livro)).setText(livro.getTitle());
             ((TextView) item.findViewById(R.id.autor_livro)).setText(livro.getAuthor());
             ((TextView) item.findViewById(R.id.clima_livro)).setText(
