@@ -60,11 +60,23 @@ public class BookDetailsActivity extends com.example.projetofinal.ui.AtividadeTe
                     ((TextView) findViewById(R.id.titulo_livro)).setText(livro.getTitle());
                     CarregadorCapas.carregar(findViewById(R.id.capa_livro), livro.getUrlCapa());
                     ((TextView) findViewById(R.id.autor_livro)).setText(livro.getAuthor());
-                    ((TextView) findViewById(R.id.clima_livro)).setText(rotuloClima(livro.getMood()));
+                    ((TextView) findViewById(R.id.clima_livro)).setText(livro.getGenero());
                     ((TextView) findViewById(R.id.sinopse_livro)).setText(livro.getSynopsis());
+                    if (!livro.getChaveOpenLibrary().isEmpty()) {
+                        findViewById(R.id.botao_fonte).setVisibility(android.view.View.VISIBLE);
+                        findViewById(R.id.botao_fonte).setOnClickListener(vista -> {
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(
+                                        "https://openlibrary.org" + livro.getChaveOpenLibrary())));
+                            } catch (android.content.ActivityNotFoundException erro) {
+                                informarErro(R.string.sem_navegador);
+                            }
+                        });
+                    }
                     favorito = favoritoSalvo;
                     atualizarBotao();
                     findViewById(R.id.botao_registrar).setEnabled(true);
+                    aplicarCores();
                 });
             } catch (RuntimeException erro) {
                 runOnUiThread(() -> {
@@ -102,6 +114,7 @@ public class BookDetailsActivity extends com.example.projetofinal.ui.AtividadeTe
     private void atualizarBotao() {
         botaoFavorito.setText(favorito ? R.string.remover_favorito : R.string.adicionar_favorito);
         botaoFavorito.setEnabled(true);
+        ((com.example.projetofinal.view.CapaLivroView) findViewById(R.id.capa_livro)).definirFavorito(favorito);
     }
 
     private void informarErro(int mensagem) {

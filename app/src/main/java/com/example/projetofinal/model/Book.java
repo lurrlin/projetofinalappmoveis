@@ -10,18 +10,27 @@ public final class Book {
     private final Mood mood;
     private final String synopsis;
     private final String urlCapa;
+    private final String genero;
+    private final String chaveOpenLibrary;
 
     public Book(String id, String title, String author, Mood mood, String synopsis) {
         this(id, title, author, mood, synopsis, "");
     }
 
     public Book(String id, String title, String author, Mood mood, String synopsis, String urlCapa) {
+        this(id, title, author, mood, synopsis, urlCapa, "Literatura", "");
+    }
+
+    public Book(String id, String title, String author, Mood mood, String synopsis, String urlCapa,
+                String genero, String chaveOpenLibrary) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.mood = mood;
         this.synopsis = synopsis;
         this.urlCapa = urlCapa;
+        this.genero = genero;
+        this.chaveOpenLibrary = chaveOpenLibrary;
     }
 
     public String getId() { return id; }
@@ -30,4 +39,6 @@ public final class Book {
     public Mood getMood() { return mood; }
     public String getSynopsis() { return synopsis; }
     public String getUrlCapa() { return urlCapa; }
+    public String getGenero() { return genero; }
+    public String getChaveOpenLibrary() { return chaveOpenLibrary; }
 }

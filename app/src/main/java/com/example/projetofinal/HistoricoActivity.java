@@ -26,7 +26,6 @@ public class HistoricoActivity extends com.example.projetofinal.ui.AtividadeTema
             tela.setPadding(barras.left, barras.top, barras.right, barras.bottom);
             return margens;
         });
-        findViewById(R.id.botao_voltar).setOnClickListener(tela -> finish());
         TextView situacao = findViewById(R.id.estado_historico);
         BancoLivros banco = BancoLivros.obterInstancia(this);
         BancoLivros.EXECUTOR.execute(() -> {
@@ -45,16 +44,11 @@ public class HistoricoActivity extends com.example.projetofinal.ui.AtividadeTema
                         android.view.View item = getLayoutInflater().inflate(R.layout.item_historico, lista, false);
                         String data = new java.text.SimpleDateFormat("dd MMM yyyy • HH:mm", java.util.Locale.forLanguageTag("pt-BR"))
                                 .format(new Date(registro.data));
-                        String luz = registro.luminosidade == null ? getString(R.string.sem_leitura_registro)
-                                : getString(registro.simulada ? R.string.leitura_simulada : R.string.leitura_sensor,
-                                        registro.luminosidade,
-                                        getString(BookDetailsActivity.rotuloClima(Book.Mood.valueOf(registro.clima))));
                         String local = registro.latitude == null ? getString(R.string.registro_sem_local)
                                 : getString(R.string.coordenadas_registro, registro.latitude,
                                         registro.longitude, registro.precisao);
                         ((TextView) item.findViewById(R.id.titulo_livro)).setText(registro.titulo);
                         ((TextView) item.findViewById(R.id.data_registro)).setText(data);
-                        ((TextView) item.findViewById(R.id.luz_registro)).setText(luz);
                         TextView coordenadas = item.findViewById(R.id.local_registro);
                         coordenadas.setText(local);
                         android.view.View botaoLocal = item.findViewById(R.id.botao_local_registro);

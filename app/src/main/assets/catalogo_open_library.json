@@ -1,0 +1,656 @@
+{
+  "fonte": "Open Library Search API",
+  "consultado_em": "2026-11-05T03:12:11.496190+00:00",
+  "consultas": [
+    "https://openlibrary.org/search.json?q=subject%3Afantasy+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Ascience_fiction+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Aromance+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Amystery+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Ahorror+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Ahistory+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Aphilosophy+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title",
+    "https://openlibrary.org/search.json?q=subject%3Abrazilian_literature+language%3Apor&limit=24&lang=pt&fields=key%2Ctitle%2Cauthor_name%2Ccover_i%2Cfirst_publish_year%2Ceditions%2Ceditions.key%2Ceditions.title"
+  ],
+  "livros": [
+    {
+      "id": "OL7924103W",
+      "titulo": "O Olho do Mundo",
+      "autor": "Robert Jordan",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL7924103W",
+      "url_capa": "https://covers.openlibrary.org/b/id/980232-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 1990. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL27495W",
+      "titulo": "O Silmarillion",
+      "autor": "J.R.R. Tolkien",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL27495W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14627042-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 1977. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL257943W",
+      "titulo": "A Guerra dos Tronos",
+      "autor": "George R. R. Martin",
+      "genero": "Fantasia",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL257943W",
+      "url_capa": "https://covers.openlibrary.org/b/id/9269962-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 1996. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL15358691W",
+      "titulo": "O Caminho dos Reis",
+      "autor": "Brandon Sanderson",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL15358691W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14658316-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 2010. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL34774028W",
+      "titulo": "Powerless",
+      "autor": "Lauren Roberts",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL34774028W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14567864-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 2023. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL19351054W",
+      "titulo": "A Guerra da Papoula",
+      "autor": "R. F. Kuang",
+      "genero": "Fantasia",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL19351054W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8463552-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 2018. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL453697W",
+      "titulo": "Pequenos deuses",
+      "autor": "Terry Pratchett",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL453697W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14648232-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 1992. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL15450W",
+      "titulo": "Phantastes",
+      "autor": "George MacDonald",
+      "genero": "Fantasia",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL15450W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14358814-M.jpg?default=false",
+      "sinopse": "Fantasia • Primeira publicação: 1850. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL450063W",
+      "titulo": "Frankenstein",
+      "autor": "Mary Shelley",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL450063W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12356249-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1818. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL52266W",
+      "titulo": "O Homem Invisível",
+      "autor": "H. G. Wells",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL52266W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6419199-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 0. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL893414W",
+      "titulo": "Duna",
+      "autor": "Frank Herbert",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL893414W",
+      "url_capa": "https://covers.openlibrary.org/b/id/11481354-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 1965. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL64365W",
+      "titulo": "Admirável Mundo Novo",
+      "autor": "Aldous Huxley",
+      "genero": "Ficção científica",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL64365W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8231823-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 1932. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL46125W",
+      "titulo": "Fundação",
+      "autor": "Isaac Asimov",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL46125W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14612610-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 1951. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL46390W",
+      "titulo": "Trilogia Fundação",
+      "autor": "Isaac Asimov",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL46390W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6502517-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 1950. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL52267W",
+      "titulo": "A Máquina do Tempo",
+      "autor": "H. G. Wells",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL52267W",
+      "url_capa": "https://covers.openlibrary.org/b/id/9009316-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 1895. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL21745884W",
+      "titulo": "Devoradores de estrelas",
+      "autor": "Andy Weir",
+      "genero": "Ficção científica",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL21745884W",
+      "url_capa": "https://covers.openlibrary.org/b/id/11200092-M.jpg?default=false",
+      "sinopse": "Ficção científica • Primeira publicação: 2021. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL35351151W",
+      "titulo": "Um casamento arranjado",
+      "autor": "Zana Kheiron",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL35351151W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14321120-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2019. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL18020194W",
+      "titulo": "Isto Acaba Aqui",
+      "autor": "Colleen Hoover",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL18020194W",
+      "url_capa": "https://covers.openlibrary.org/b/id/10473609-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2012. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL27733867W",
+      "titulo": "É assim que começa",
+      "autor": "Colleen Hoover",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL27733867W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12749873-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2022. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL42430111W",
+      "titulo": "O Acordo",
+      "autor": "Elle Kennedy",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL42430111W",
+      "url_capa": "https://covers.openlibrary.org/b/id/10201611-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2000. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL24178205W",
+      "titulo": "A hipótese do amor",
+      "autor": "Ali Hazelwood",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL24178205W",
+      "url_capa": "https://covers.openlibrary.org/b/id/10601402-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2021. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL20068530W",
+      "titulo": "Verity",
+      "autor": "Colleen Hoover",
+      "genero": "Suspense",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL20068530W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8747160-M.jpg?default=false",
+      "sinopse": "Suspense • Primeira publicação: 2018. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL66554W",
+      "titulo": "Orgulho e Preconceito",
+      "autor": "Jane Austen",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL66554W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14348537-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 1813. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL20090688W",
+      "titulo": "Vermelho, Branco e Sangue Azul",
+      "autor": "Casey McQuiston",
+      "genero": "Romance",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL20090688W",
+      "url_capa": "https://covers.openlibrary.org/b/id/9171544-M.jpg?default=false",
+      "sinopse": "Romance • Primeira publicação: 2019. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL34224558W",
+      "titulo": "Nunca Minta",
+      "autor": "Freida McFadden",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL34224558W",
+      "url_capa": "https://covers.openlibrary.org/b/id/13198561-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 2022. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL472549W",
+      "titulo": "O Homem Do Terno Marrom",
+      "autor": "Agatha Christie",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL472549W",
+      "url_capa": "https://covers.openlibrary.org/b/id/11153508-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1924. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL262421W",
+      "titulo": "As Aventuras de Sherlock Holmes",
+      "autor": "Arthur Conan Doyle",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL262421W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6717853-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1892. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL471932W",
+      "titulo": "O Assassinato de Roger Ackroyd",
+      "autor": "Agatha Christie",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL471932W",
+      "url_capa": "https://covers.openlibrary.org/b/id/13151356-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1926. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL471565W",
+      "titulo": "E Não Sobrou Nenhum",
+      "autor": "Agatha Christie",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL471565W",
+      "url_capa": "https://covers.openlibrary.org/b/id/11172296-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1939. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL262438W",
+      "titulo": "O Signo dos Quatro",
+      "autor": "Arthur Conan Doyle",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL262438W",
+      "url_capa": "https://covers.openlibrary.org/b/id/9247987-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1889. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL262496W",
+      "titulo": "Sherlock Holmes: Um estudo em vermelho",
+      "autor": "Arthur Conan Doyle",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL262496W",
+      "url_capa": "https://covers.openlibrary.org/b/id/13405534-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1887. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL471943W",
+      "titulo": "Depois Do Funeral",
+      "autor": "Agatha Christie",
+      "genero": "Mistério",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL471943W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12996535-M.jpg?default=false",
+      "sinopse": "Mistério • Primeira publicação: 1953. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL81634W",
+      "titulo": "Misery",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL81634W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8259296-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1978. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL81613W",
+      "titulo": "It",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL81613W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8569284-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1986. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL927199W",
+      "titulo": "O Exorcista",
+      "autor": "William Peter Blatty",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL927199W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12715730-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1971. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL81610W",
+      "titulo": "Cujo",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL81610W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8570003-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1981. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL32195W",
+      "titulo": "Casa de Folhas",
+      "autor": "Mark Z. Danielewski",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL32195W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6450442-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1998. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL81631W",
+      "titulo": "O Cemitério",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL81631W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12015500-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1983. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL9973101W",
+      "titulo": "A Longa Marcha",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL9973101W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14653609-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1979. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL81619W",
+      "titulo": "Christine",
+      "autor": "Stephen King",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL81619W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14655985-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 1983. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL244537W",
+      "titulo": "A arte da guerra",
+      "autor": "Sun Tzu",
+      "genero": "Estratégia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL244537W",
+      "url_capa": "https://covers.openlibrary.org/b/id/4849549-M.jpg?default=false",
+      "sinopse": "Estratégia • Primeira publicação: 1900. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1968368W",
+      "titulo": "48 Leis do Poder",
+      "autor": "Robert Greene",
+      "genero": "Desenvolvimento pessoal",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1968368W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6424160-M.jpg?default=false",
+      "sinopse": "Desenvolvimento pessoal • Primeira publicação: 1998. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL17075811W",
+      "titulo": "Sapiens",
+      "autor": "Yuval Noah Harari",
+      "genero": "História",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL17075811W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8634250-M.jpg?default=false",
+      "sinopse": "História • Primeira publicação: 2011. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL17732W",
+      "titulo": "Bíblia",
+      "autor": "Diversos autores",
+      "genero": "Religião",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL17732W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12707846-M.jpg?default=false",
+      "sinopse": "Religião • Primeira publicação: 1200. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL8193465W",
+      "titulo": "Um Conto de Duas Cidades",
+      "autor": "Charles Dickens",
+      "genero": "Romance histórico",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL8193465W",
+      "url_capa": "https://covers.openlibrary.org/b/id/13301713-M.jpg?default=false",
+      "sinopse": "Romance histórico • Primeira publicação: 1800. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL8193416W",
+      "titulo": "O Retrato de Dorian Gray",
+      "autor": "Oscar Wilde",
+      "genero": "Ficção gótica",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL8193416W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14314858-M.jpg?default=false",
+      "sinopse": "Ficção gótica • Primeira publicação: 1890. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL629052W",
+      "titulo": "Manifesto do Partido Comunista",
+      "autor": "Karl Marx e Friedrich Engels",
+      "genero": "Política",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL629052W",
+      "url_capa": "https://covers.openlibrary.org/b/id/11048623-M.jpg?default=false",
+      "sinopse": "Política • Primeira publicação: 1848. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL138052W",
+      "titulo": "Alice no País das Maravilhas",
+      "autor": "Lewis Carroll",
+      "genero": "Infantil",
+      "clima": "LIGHT",
+      "chave_open_library": "/works/OL138052W",
+      "url_capa": "https://covers.openlibrary.org/b/id/10527843-M.jpg?default=false",
+      "sinopse": "Infantil • Primeira publicação: 1865. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL45499W",
+      "titulo": "Tao Te Ching",
+      "autor": "Lao-Tsé",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL45499W",
+      "url_capa": "https://covers.openlibrary.org/b/id/662232-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1842. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1230601W",
+      "titulo": "O mito de Sísifo",
+      "autor": "Albert Camus",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1230601W",
+      "url_capa": "https://covers.openlibrary.org/b/id/1014395-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1941. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL17837119W",
+      "titulo": "12 Regras Para a Vida",
+      "autor": "Jordan B. Peterson",
+      "genero": "Desenvolvimento pessoal",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL17837119W",
+      "url_capa": "https://covers.openlibrary.org/b/id/8131760-M.jpg?default=false",
+      "sinopse": "Desenvolvimento pessoal • Primeira publicação: 2015. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL922430W",
+      "titulo": "O Mundo de Sofia",
+      "autor": "Jostein Gaarder",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL922430W",
+      "url_capa": "https://covers.openlibrary.org/b/id/223463-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1991. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1089297W",
+      "titulo": "O príncipe",
+      "autor": "Niccolò Machiavelli",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1089297W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12726168-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1515. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL98130W",
+      "titulo": "Assim Falava Zaratustra",
+      "autor": "Friedrich Nietzsche",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL98130W",
+      "url_capa": "https://covers.openlibrary.org/b/id/1017466-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1883. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL15692719W",
+      "titulo": "O Anticristo",
+      "autor": "Friedrich Nietzsche",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL15692719W",
+      "url_capa": "https://covers.openlibrary.org/b/id/1759313-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1895. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1184991W",
+      "titulo": "Arte de Amar",
+      "autor": "Erich Fromm",
+      "genero": "Filosofia",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1184991W",
+      "url_capa": "https://covers.openlibrary.org/b/id/4741809-M.jpg?default=false",
+      "sinopse": "Filosofia • Primeira publicação: 1956. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1003017W",
+      "titulo": "Memórias Póstumas de Brás Cubas",
+      "autor": "Machado de Assis",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1003017W",
+      "url_capa": "https://covers.openlibrary.org/b/id/123152-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1881. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL796480W",
+      "titulo": "Brida",
+      "autor": "Paulo Coelho",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL796480W",
+      "url_capa": "https://covers.openlibrary.org/b/id/1051985-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1990. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1002138W",
+      "titulo": "A Paixão Segundo G.H.",
+      "autor": "Clarice Lispector",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1002138W",
+      "url_capa": "https://covers.openlibrary.org/b/id/4141933-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1964. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1248157W",
+      "titulo": "Capitães da Areia",
+      "autor": "Jorge Amado",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1248157W",
+      "url_capa": "https://covers.openlibrary.org/b/id/4178919-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1937. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1010355W",
+      "titulo": "As meninas",
+      "autor": "Lygia Fagundes Telles",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1010355W",
+      "url_capa": "https://covers.openlibrary.org/b/id/6506475-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1973. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL1615984W",
+      "titulo": "Memórias de um Sargento de Milícias",
+      "autor": "Manuel Antônio de Almeida",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL1615984W",
+      "url_capa": "https://covers.openlibrary.org/b/id/123863-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1925. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL31247718W",
+      "titulo": "Vidas Secas",
+      "autor": "Graciliano Ramos",
+      "genero": "Literatura brasileira",
+      "clima": "MEDIUM",
+      "chave_open_library": "/works/OL31247718W",
+      "url_capa": "https://covers.openlibrary.org/b/id/14158825-M.jpg?default=false",
+      "sinopse": "Literatura brasileira • Primeira publicação: 1986. Sinopse não disponível. Saiba mais na ficha do livro."
+    },
+    {
+      "id": "OL27963469W",
+      "titulo": "Corpos Secos",
+      "autor": "Luisa Geisler, Marcelo Ferroni, Natalia Borges Polesso e Samir Machado de Machado",
+      "genero": "Terror",
+      "clima": "DARK",
+      "chave_open_library": "/works/OL27963469W",
+      "url_capa": "https://covers.openlibrary.org/b/id/12919178-M.jpg?default=false",
+      "sinopse": "Terror • Primeira publicação: 2019. Sinopse não disponível. Saiba mais na ficha do livro."
+    }
+  ]
+}

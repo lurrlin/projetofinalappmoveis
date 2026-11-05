@@ -44,7 +44,7 @@ public abstract class AtividadeTematica extends AppCompatActivity {
 
     public static int corAtual() {
         return clima == Book.Mood.DARK ? Color.rgb(255,123,131)
-                : clima == Book.Mood.LIGHT ? Color.rgb(114,214,160) : Color.rgb(128,181,255);
+                : clima == Book.Mood.LIGHT ? Color.rgb(114,214,160) : Color.rgb(241,204,104);
     }
 
     protected void aplicarCores() {
@@ -52,6 +52,20 @@ public abstract class AtividadeTematica extends AppCompatActivity {
     }
 
     private void colorir(View vista, int cor) {
+        if (vista instanceof android.widget.TextView && "realce".equals(vista.getTag())) {
+            ((android.widget.TextView) vista).setTextColor(cor);
+        }
+        if (vista instanceof com.example.projetofinal.view.CapaLivroView) {
+            ((com.example.projetofinal.view.CapaLivroView) vista).definirRealce(cor);
+        }
+        if (vista instanceof com.google.android.material.textfield.TextInputLayout) {
+            ((com.google.android.material.textfield.TextInputLayout) vista).setBoxStrokeColor(cor);
+        }
+        if (vista instanceof com.google.android.material.checkbox.MaterialCheckBox) {
+            ((com.google.android.material.checkbox.MaterialCheckBox) vista).setButtonTintList(
+                    new ColorStateList(new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}},
+                            new int[]{cor, Color.rgb(174,181,190)}));
+        }
         if (vista instanceof MaterialButton) {
             MaterialButton botao = (MaterialButton) vista;
             int fundo = botao.getBackgroundTintList() == null ? Color.TRANSPARENT

@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 public final class BancoLivros extends SQLiteOpenHelper {
     public static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private static BancoLivros instancia;
+    private final Context contexto;
 
     public static synchronized BancoLivros obterInstancia(Context contexto) {
         if (instancia == null) instancia = new BancoLivros(contexto, "lumibooks.db");
@@ -25,7 +26,8 @@ public final class BancoLivros extends SQLiteOpenHelper {
 
     // Nome separado permite testar sem alterar o banco usado pelo usuário.
     public BancoLivros(Context contexto, String nomeBanco) {
-        super(contexto.getApplicationContext(), nomeBanco, null, 3);
+        super(contexto.getApplicationContext(), nomeBanco, null, 4);
+        this.contexto = contexto.getApplicationContext();
     }
 
     @Override public void onConfigure(SQLiteDatabase banco) {
@@ -35,7 +37,8 @@ public final class BancoLivros extends SQLiteOpenHelper {
     @Override public void onCreate(SQLiteDatabase banco) {
         banco.execSQL("CREATE TABLE livros (id TEXT PRIMARY KEY, titulo TEXT NOT NULL, "
                 + "autor TEXT NOT NULL, clima TEXT NOT NULL, sinopse TEXT NOT NULL, "
-                + "favorito INTEGER NOT NULL DEFAULT 0 CHECK(favorito IN (0, 1)), url_capa TEXT NOT NULL DEFAULT '')");
+                + "favorito INTEGER NOT NULL DEFAULT 0 CHECK(favorito IN (0, 1)), url_capa TEXT NOT NULL DEFAULT '', "
+                + "genero TEXT NOT NULL DEFAULT 'Literatura', chave_open_library TEXT NOT NULL DEFAULT '')");
         for (Book livro : BookCatalog.getAll()) {
             ContentValues valores = new ContentValues();
             valores.put("id", livro.getId());
@@ -47,6 +50,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
             banco.insertOrThrow("livros", null, valores);
         }
         criarHistorico(banco);
+        ampliarCatalogo(banco);
     }
 
     @Override public void onUpgrade(SQLiteDatabase banco, int versaoAntiga, int versaoNova) {
@@ -59,6 +63,50 @@ public final class BancoLivros extends SQLiteOpenHelper {
                 banco.update("livros", valores, "id = ?", new String[]{livro.getId()});
             }
         }
+        if (versaoAntiga < 4) {
+            banco.execSQL("ALTER TABLE livros ADD COLUMN genero TEXT NOT NULL DEFAULT 'Literatura'");
+            banco.execSQL("ALTER TABLE livros ADD COLUMN chave_open_library TEXT NOT NULL DEFAULT ''");
+            ampliarCatalogo(banco);
+        }
+    }
+
+    private void ampliarCatalogo(SQLiteDatabase banco) {
+        banco.execSQL("UPDATE livros SET genero = 'Fantasia' WHERE id IN ('harry-potter-1', 'o-hobbit')");
+        banco.execSQL("UPDATE livros SET genero = 'Terror' WHERE id IN ('o-iluminado', 'dracula')");
+        banco.execSQL("UPDATE livros SET genero = 'Mistério' WHERE id = 'sherlock'");
+        banco.execSQL("UPDATE livros SET genero = 'Literatura brasileira' WHERE id = 'dom-casmurro'");
+        for (Book livro : CatalogoOpenLibrary.lerCatalogoInicial(contexto)) inserirLivro(banco, livro);
+    }
+
+    /** Não substitui linhas existentes: preserva favoritos, IDs e referências do histórico. */
+    private boolean inserirLivro(SQLiteDatabase banco, Book livro) {
+        try (Cursor existente = banco.query("livros", new String[]{"id"},
+                "id = ? OR (chave_open_library != '' AND chave_open_library = ?)",
+                new String[]{livro.getId(), livro.getChaveOpenLibrary()}, null, null, null)) {
+            if (existente.moveToFirst()) return false;
+        }
+        ContentValues valores = new ContentValues();
+        valores.put("id", livro.getId());
+        valores.put("titulo", livro.getTitle());
+        valores.put("autor", livro.getAuthor());
+        valores.put("clima", livro.getMood().name());
+        valores.put("sinopse", livro.getSynopsis());
+        valores.put("url_capa", livro.getUrlCapa());
+        valores.put("genero", livro.getGenero());
+        valores.put("chave_open_library", livro.getChaveOpenLibrary());
+        banco.insertOrThrow("livros", null, valores);
+        return true;
+    }
+
+    public int importarLivros(List<Book> livros) {
+        SQLiteDatabase banco = getWritableDatabase();
+        int quantidade = 0;
+        banco.beginTransaction();
+        try {
+            for (Book livro : livros) if (inserirLivro(banco, livro)) quantidade++;
+            banco.setTransactionSuccessful();
+        } finally { banco.endTransaction(); }
+        return quantidade;
     }
 
     private void criarHistorico(SQLiteDatabase banco) {
@@ -172,6 +220,8 @@ public final class BancoLivros extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow("autor")),
                 Book.Mood.valueOf(cursor.getString(cursor.getColumnIndexOrThrow("clima"))),
                 cursor.getString(cursor.getColumnIndexOrThrow("sinopse")),
-                cursor.getString(cursor.getColumnIndexOrThrow("url_capa")));
+                cursor.getString(cursor.getColumnIndexOrThrow("url_capa")),
+                cursor.getString(cursor.getColumnIndexOrThrow("genero")),
+                cursor.getString(cursor.getColumnIndexOrThrow("chave_open_library")));
     }
 }

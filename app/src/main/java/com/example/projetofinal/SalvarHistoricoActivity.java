@@ -57,15 +57,7 @@ public class SalvarHistoricoActivity extends com.example.projetofinal.ui.Ativida
         incluirLocal = findViewById(R.id.incluir_localizacao);
         situacao = findViewById(R.id.estado_registro);
         TextView contextoRegistro = findViewById(R.id.contexto_registro);
-        String clima = getIntent().getStringExtra(EXTRA_CLIMA);
-        if (getIntent().hasExtra(EXTRA_LUX) && clima != null) {
-            contextoRegistro.setText(getString(getIntent().getBooleanExtra(EXTRA_SIMULADA, false)
-                    ? R.string.leitura_simulada : R.string.leitura_sensor,
-                    getIntent().getFloatExtra(EXTRA_LUX, 0),
-                    getString(BookDetailsActivity.rotuloClima(Book.Mood.valueOf(clima)))));
-        } else {
-            contextoRegistro.setText(R.string.sem_leitura_registro);
-        }
+        contextoRegistro.setText(R.string.registro_descricao);
         findViewById(R.id.botao_voltar).setOnClickListener(tela -> finish());
         findViewById(R.id.botao_ver_historico).setOnClickListener(tela ->
                 startActivity(new Intent(this, HistoricoActivity.class)));
@@ -117,10 +109,8 @@ public class SalvarHistoricoActivity extends com.example.projetofinal.ui.Ativida
     private void gravar(Location local, int mensagemSucesso) {
         aguardandoLocal = false;
         situacao.setText(R.string.salvando_historico);
-        Intent origem = getIntent();
-        Float lux = origem.hasExtra(EXTRA_LUX) ? origem.getFloatExtra(EXTRA_LUX, 0) : null;
         RegistroHistorico registro = new RegistroHistorico(idRegistro, idLivro, "", System.currentTimeMillis(),
-                lux, origem.getStringExtra(EXTRA_CLIMA), origem.getBooleanExtra(EXTRA_SIMULADA, false),
+                null, null, false,
                 local == null ? null : local.getLatitude(), local == null ? null : local.getLongitude(),
                 local == null ? null : local.getAccuracy());
         BancoLivros.EXECUTOR.execute(() -> {

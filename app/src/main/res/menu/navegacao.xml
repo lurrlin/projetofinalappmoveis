@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_descobrir" android:title="@string/aba_descobrir" android:icon="@drawable/icone_livro"/>
+    <item android:id="@+id/menu_descobrir" android:title="@string/aba_descobrir" android:icon="@drawable/icone_descobrir"/>
     <item android:id="@+id/menu_biblioteca" android:title="@string/aba_biblioteca" android:icon="@drawable/icone_livro"/>
     <item android:id="@+id/menu_favoritos" android:title="@string/titulo_favoritos_novo" android:icon="@drawable/icone_coracao"/>
     <item android:id="@+id/menu_historico" android:title="@string/historico_curto" android:icon="@drawable/icone_historico"/>

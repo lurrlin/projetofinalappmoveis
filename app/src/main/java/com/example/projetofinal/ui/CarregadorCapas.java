@@ -28,7 +28,7 @@ public final class CarregadorCapas {
     private CarregadorCapas() { }
 
     public static void carregar(ImageView imagem, String endereco) {
-        imagem.setImageResource(R.drawable.icone_livro);
+        imagem.setImageDrawable(null);
         imagem.setTag(endereco);
         if (endereco == null || endereco.isEmpty()) return;
         Bitmap existente = MEMORIA.get(endereco);
@@ -36,6 +36,8 @@ public final class CarregadorCapas {
         WeakReference<ImageView> referencia = new WeakReference<>(imagem);
         File arquivo = new File(imagem.getContext().getCacheDir(), "capa_" + Integer.toHexString(endereco.hashCode()) + ".jpg");
         FILA.execute(() -> {
+            ImageView solicitante = referencia.get();
+            if (solicitante == null || !endereco.equals(solicitante.getTag())) return;
             Bitmap capa = MEMORIA.get(endereco);
             if (capa == null && arquivo.isFile()) capa = BitmapFactory.decodeFile(arquivo.getAbsolutePath());
             if (capa == null) {

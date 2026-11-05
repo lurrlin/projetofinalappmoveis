@@ -1,224 +1,161 @@
 # LumiBooks
 
-Uma biblioteca interativa que recomenda livros conforme a luz ao seu redor.
-Em ambientes escuros, sugere terror e suspense; com luz intermediária, mistério
-e drama; com bastante luz, aventura e fantasia.
+Uma biblioteca Android em **Java e XML** que adapta sugestões à luz do ambiente.
+Tema sempre escuro, estante de capas, busca, favoritos e histórico com localização opcional.
 
-Aplicativo Android desenvolvido em **Java e XML**, com catálogo offline de seis
-livros, favoritos, medidor gráfico próprio e histórico com localização opcional.
-As sinopses foram escritas para o projeto. O aplicativo não disponibiliza os
-textos completos dos livros. Os climas são uma curadoria, não classificação indicativa.
+## Catálogo e Open Library
+
+O aplicativo inclui **70 livros**: os seis originais e **64 obras consultadas na
+Open Library**, disponíveis no SQLite desde a primeira abertura, mesmo offline.
+Há fantasia, ficção científica, romance, mistério, terror, história, filosofia,
+literatura brasileira e outros temas revisados pelo projeto.
+
+Os dados importados estão em `app/src/main/assets/catalogo_open_library.json`.
+O arquivo registra a origem, a data da consulta e as URLs utilizadas.
+Os IDs das obras e das capas vêm da API real. Alguns títulos, autores e temas
+receberam ajustes editoriais; os climas não são classificação indicativa.
+
+Na aba **Biblioteca**:
+
+1. Digite um título, autor ou tema para filtrar os livros locais.
+2. Para encontrar outros livros, toque em **Buscar na Open Library**.
+3. Selecione os resultados desejados e toque em **Adicionar selecionados**.
+4. Os livros escolhidos ficam salvos no aparelho. Importar novamente a mesma
+   obra não duplica registros nem substitui favoritos e histórico.
+
+A busca online consulta até 12 obras por vez, com preferência por edições em
+português. Títulos, idiomas, capas e qualidade dos metadados podem variar.
+As respostas são reaproveitadas por cinco minutos, com no máximo uma consulta
+por segundo. Erros de conexão não impedem usar a biblioteca local.
+
+As capas carregam fora da interface e ficam em cache no aparelho. Sem imagem,
+o componente próprio desenha uma capa alternativa. O app não baixa textos completos.
+A Search API não retorna sinopses: os seis livros originais têm resumos próprios;
+os importados mostram os dados bibliográficos disponíveis e um link para a ficha,
+sem inventar resumos.
+
+Fontes oficiais: [Search API](https://openlibrary.org/dev/docs/api/search),
+[Covers API](https://openlibrary.org/dev/docs/api/covers) e
+[regras de uso](https://openlibrary.org/developers/api).
+
+Para atualizar manualmente o catálogo incluído:
+
+```powershell
+python scripts/atualizar_catalogo.py
+```
+
+O script faz oito consultas pequenas por tema, reutiliza respostas em
+`build/openlibrary/` e valida a quantidade antes de substituir o arquivo.
+Requer Python 3 e internet na primeira consulta. Alterações futuras no catálogo
+incluído devem vir acompanhadas de uma nova migração para instalações existentes.
+
+## Interface e luminosidade
+
+- **Descobrir:** sugestões pelo clima de luz, com uma frase curta colorida.
+- **Biblioteca:** todos os livros, busca por título/autor/tema e importação online.
+- **Favoritos:** estante dos livros salvos, sem filtro por luminosidade.
+- **Histórico:** capa, título, data e acesso opcional ao local registrado.
+
+Os realces mudam entre **vermelho** (pouca luz), **amarelo** (meia-luz) e
+**verde** (ambiente claro). Não há termômetro, slider ou valor de lux na interface.
+Sem leitura disponível, os livros continuam acessíveis; o realce inicial é amarelo.
+
+A estante usa RecyclerView para reaproveitar cartões e carregar as capas conforme
+aparecem. A fonte é sans-serif, com contraste e tamanhos consistentes. Telas largas
+usam três colunas; fontes ampliadas usam uma coluna.
+
+| Primeira leitura | Clima |
+| --- | --- |
+| Menos de 50 lux | Entre sombras |
+| 50 até menos de 300 lux | Meia-luz |
+| A partir de 300 lux | Luz do dia |
+
+As margens do sensor evitam trocas repetidas perto dos limites: 60/40 lux na
+primeira transição e 330/270 na segunda. Valores inválidos são descartados.
+Cada tela interrompe sua leitura ao sair do primeiro plano.
+
+No emulador, ajuste a luz em **⋮ → Virtual sensors → Additional sensors → Light**.
+Alguns controles exigem uma janela separada do emulador.
+[Documentação Android](https://developer.android.com/studio/run/emulator-extended-controls).
+
+As recomendações desta etapa continuam baseadas no clima. Personalização pelo
+histórico e pelos favoritos ainda é uma etapa pendente.
 
 ## Requisitos do trabalho
 
-| Critério | Pontos previstos na avaliação | Implementação |
+| Critério | Pontos | Implementação |
 | --- | ---: | --- |
-| Funcionamento geral | 2,0 | Catálogo, detalhes, recomendações, favoritos e histórico |
-| View customizada | 1,0 | `MedidorLuminosidade`, desenhado com Canvas e Paint |
-| Banco de dados | 1,0 | SQLite: livros, favoritos e histórico; migração da versão 1 para 2 |
-| Geolocalização | 1,0 | Localização opcional ao salvar um registro, com permissão |
-| Sensores | 1,0 | Leitura de luminosidade por TYPE_LIGHT |
+| Funcionamento geral | 2,0 | Biblioteca, busca, importação, detalhes, favoritos e histórico |
+| View customizada | 1,0 | `CapaLivroView`: Canvas, Paint, recorte, lombada, capa alternativa e marcador de favorito |
+| Banco de dados | 1,0 | SQLite, catálogo de 70 livros e migrações que preservam os dados |
+| Geolocalização | 1,0 | Localização opcional ao registrar um livro |
+| Sensores | 1,0 | TYPE_LIGHT altera sugestões, frase e cores |
 | Organização e documentação | 1,0 | Classes por responsabilidade, testes, README e roteiro |
-| Apresentação | 1,0 | [Roteiro de apresentação](docs/APRESENTACAO.md); todos devem participar |
-| Compilação automática e APK | 2,0 | [GitHub Actions](.github/workflows/android.yml) com testes locais, análise e APK |
-| Total | 10,0 | A pontuação depende da avaliação e da demonstração |
+| Apresentação | 1,0 | [Roteiro](docs/APRESENTACAO.md); todos devem participar |
+| Compilação automática e APK | 2,0 | [GitHub Actions](.github/workflows/android.yml) |
+| Total | 10,0 | Depende da avaliação e demonstração do grupo |
 
-As seis etapas de implementação estão preparadas. A primeira execução da
-automação no GitHub e a demonstração dos sensores em aparelho físico ainda
-precisam ser confirmadas pelo grupo.
+A view customizada passou do antigo medidor para as capas. `CapaLivroView`
+estende AppCompatImageView e sobrescreve `onDraw` e `onMeasure`: desenha a
+alternativa offline, a lombada e o marcador de favorito com Canvas e Paint,
+recorta a imagem e mantém a proporção da capa. É usada na estante, nos detalhes
+e no histórico.
 
-## Como usar
+## Banco, histórico e localização
 
-### Nova interface — branch melhorias
+O SQLite `lumibooks.db` está na **versão 4**. A migração acrescenta gênero,
+referência da Open Library e os 64 novos livros, preservando IDs, favoritos e
+registros anteriores. Consultas e gravações ficam fora da interface.
+A importação usa transação e verifica IDs para evitar duplicação.
 
-A navegação inferior reúne Descobrir, Biblioteca, Favoritos e Histórico.
-Biblioteca mostra todos os livros; Favoritos mostra somente os salvos, sem filtro
-de luz. O Histórico usa cartões com capa, data e clima; as coordenadas aparecem
-ao tocar em “Ver local deste registro”.
+Novos registros guardam livro, data/hora e localização opcional. **Não gravam
+lux nem clima.** Os campos antigos permanecem por compatibilidade, mas não
+aparecem na interface. O histórico mostra os últimos 100 registros.
 
-O aplicativo permanece em modo escuro. Os realces dos botões e da navegação mudam
-com o sensor: vermelho para pouca luz, azul para luz intermediária e verde para
-luz forte. Sem leitura disponível, o realce inicial é azul e o catálogo permanece acessível.
+A localização começa desmarcada e só é solicitada ao salvar com essa opção.
+Aceita permissão aproximada ou precisa, espera até 20 segundos e aceita posições
+de até 30 segundos de idade. Sem permissão ou sinal, salva sem coordenadas.
+Sair da tela cancela a busca. Latitude, longitude e precisão ficam disponíveis
+em **Ver local deste registro**; não há coleta em segundo plano.
 
-As capas vêm da [Open Library](https://openlibrary.org/developers/api), com IDs
-conferidos pela busca pública. Algumas imagens são de edições em inglês; os títulos
-e resumos do catálogo continuam em português. A primeira carga requer internet.
-As imagens ficam em cache local; sem imagem ou conexão, aparece um símbolo de livro.
-O banco está na versão 3 e a migração mantém favoritos e histórico.
+Histórico, favoritos e coordenadas não são enviados à Open Library. Apenas
+a busca digitada e os IDs de capas são consultados online. O banco está excluído
+do backup automático e da transferência entre aparelhos. Desinstalar ou limpar
+os dados pode apagar a biblioteca pessoal.
 
-Este primeiro commit visual ainda usa seis livros e as recomendações por luz.
-Os próximos commits serão a importação do catálogo e as recomendações que priorizam
-histórico e favoritos. Não foi identificada documentação pública oficial atual
-para uma integração de catálogo do Skoob; por isso a alternativa adotada foi Open Library.
+## Abrir e compilar
 
-1. Abra o LumiBooks. O sensor começa a medir a luz na tela inicial.
-2. Veja o clima no medidor e os livros recomendados.
-3. No emulador, use **⋮ → Virtual sensors → Additional sensors → Light** para ajustar os lux.
-4. Abra **Biblioteca** para explorar todos os livros, independentemente da luz.
-5. Abra **Ver detalhes** para ler a sinopse e adicionar ou remover um favorito.
-6. Use **Favoritos** na navegação inferior para acessar os livros salvos.
-7. Nos detalhes, toque em **Registrar no histórico** e depois **Salvar registro**.
-8. Marque a opção de localização apenas se quiser incluí-la.
-9. Acesse **Ver histórico** no catálogo ou na tela de registro.
-
-Não há slider ou modo manual dentro do app. Sem leitura, Descobrir apresenta todos
-os livros e informa a ausência do sensor. O sensor virtual do emulador envia os mesmos
-eventos TYPE_LIGHT usados em um aparelho físico.
-Veja os [controles do emulador](https://developer.android.com/studio/run/emulator-extended-controls).
-Alguns controles exigem abrir o emulador em janela separada.
-
-## Abrir no Android Studio
-
-- Android mínimo para executar: **7.0 / API 24**.
-- SDK de compilação e destino: **37**, pacote `platforms;android-37.0`.
-- Android Build Tools: **36.0.0**.
-- JDK para executar o Gradle: **25**, conforme `gradle/gradle-daemon-jvm.properties`.
+- Android mínimo: **7.0 / API 24**.
+- SDK de compilação/destino: **37**, pacote `platforms;android-37.0`.
+- Build Tools: **36.0.0**.
+- JDK: **25**, conforme `gradle/gradle-daemon-jvm.properties`.
 - Gradle Wrapper: **9.6.0**; Android Gradle Plugin: **9.4.1**.
-- O código Java usa compatibilidade de linguagem Java 11.
+- Código Java compatível com Java 11.
 
-Abra a pasta no Android Studio, instale o SDK indicado pelo SDK Manager,
-sincronize o Gradle e execute o módulo `app`. A primeira sincronização precisa
-de internet para baixar dependências. `local.properties` contém o caminho do
-SDK da sua máquina e não deve ser enviado ao GitHub.
-
-No Windows:
+Abra a pasta no Android Studio, instale o SDK e sincronize o Gradle.
+A primeira sincronização precisa de internet. Não envie `local.properties`.
 
 ```powershell
 .\gradlew.bat :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
 ```
 
-No Linux/macOS:
+No Linux/macOS, use `bash ./gradlew` com as mesmas tarefas.
 
-```sh
-bash ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest
-```
+## Testes
 
-## APK e entrega
+- 8 testes locais: catálogo original, IDs e regras da luminosidade.
+- 13 testes Android: banco, migrações das versões 1 e 3, catálogo ampliado,
+  parser da API, importação sem duplicatas, busca, rotação e navegação.
+- 1 teste opcional com a API real: consulta, importação em banco isolado e seletor.
+- Lint e revisão visual das telas.
 
-O APK gerado localmente fica em `app/build/outputs/apk/debug/app-debug.apk`.
-Na preparação da entrega local, também foi disponibilizada uma cópia em
-`build/entrega/LumiBooks.apk`. Arquivos de build são ignorados pelo Git.
-
-Para baixar o APK gerado automaticamente:
-
-1. Envie o projeto, incluindo `.github/workflows/android.yml` e o Gradle Wrapper,
-   para o repositório do grupo no GitHub.
-2. Abra **Actions → Compilar LumiBooks**.
-3. Aguarde a execução ficar verde.
-4. Em **Artifacts**, baixe **LumiBooks-APK** e extraia `LumiBooks.apk`.
-5. Entregue esse APK junto com o link do repositório e seu README.
-
-O workflow executa em pushes, pull requests e manualmente por **Run workflow**.
-Ele executa testes locais e lint, compila o aplicativo e o APK de testes,
-e publica o APK apenas quando essas verificações passam. Não executa um emulador
-no GitHub. Os relatórios ficam no artefato **LumiBooks-relatorios**.
-
-O APK fica disponível por 30 dias; os relatórios, por 14 dias. Guarde a versão
-da entrega ou anexe-a manualmente a uma Release do repositório. É um APK **debug
-assinado automaticamente**, adequado à demonstração acadêmica; não é uma versão
-de publicação na Play Store. Builds de máquinas diferentes podem usar assinaturas
-de debug diferentes e não permitir atualização por cima. Não desinstale sem
-considerar que isso pode apagar os favoritos e o histórico locais.
-
-O workflow foi preparado seguindo a documentação do
-[setup-java](https://github.com/actions/setup-java/tree/v5),
-[setup-android](https://github.com/android-actions/setup-android),
-[setup-gradle](https://github.com/gradle/actions/tree/v5/setup-gradle) e
-[upload-artifact](https://github.com/actions/upload-artifact/tree/v4).
-Sua execução remota ainda não foi confirmada: a pasta não tinha remoto
-configurado durante a preparação da entrega.
-
-## Como funcionam as recomendações
-
-| Primeira leitura do sensor | Clima |
-| --- | --- |
-| 0 até menos de 50 lux | Entre sombras |
-| 50 até menos de 300 lux | Meia-luz |
-| A partir de 300 lux | Luz do dia |
-
-As faixas são decisões do projeto. No sensor real, pequenas margens evitam
-trocar os livros repetidamente perto dos limites: sombras passa a meia-luz a
-partir de 60 lux, e meia-luz volta a sombras abaixo de 40. Meia-luz passa a luz
-do dia a partir de 330, e luz do dia volta abaixo de 270. Mudanças grandes podem
-pular diretamente de uma ponta à outra. O sensor virtual usa as mesmas regras do sensor físico.
-
-`SensorLuminosidade` registra TYPE_LIGHT apenas enquanto a tela inicial está
-em primeiro plano. Ao retornar, aguarda uma nova leitura. Valores negativos,
-infinitos ou inválidos são descartados. O catálogo é atualizado quando o clima
-muda, sem consultar o banco a cada evento.
-
-`MedidorLuminosidade` estende `View` e usa `onDraw`, `Canvas` e `Paint`
-para desenhar três arcos e um ponteiro. O ponteiro indica uma categoria, não
-uma escala numérica. O valor em lux aparece no texto e o medidor tem descrição
-para leitor de tela.
-
-## Banco, histórico e localização
-
-O SQLite local `lumibooks.db` armazena os livros e favoritos. O catálogo inicial
-é inserido apenas na criação do banco. A versão 2 acrescenta o histórico sem
-apagar livros ou favoritos. As operações são executadas em uma fila fora da interface.
-
-Cada registro contém livro, data/hora do salvamento, luminosidade e clima capturados
-ao abrir os detalhes, e indicação de leitura real ou simulada. Sem leitura, o
-histórico informa essa ausência. A tela exibe até 100 registros mais recentes;
-os demais permanecem armazenados.
-
-A localização começa desmarcada e é solicitada apenas ao salvar com essa opção.
-O aplicativo aceita permissão aproximada ou precisa, consulta provedores disponíveis
-e aguarda até 20 segundos. Aceita posições com até 30 segundos de idade e precisão
-informada pelo Android. Mostra latitude, longitude e precisão estimada; não oferece
-mapa ou endereço.
-
-Se a permissão for negada, o serviço estiver desligado ou a posição não chegar,
-o registro é salvo sem coordenadas, com uma mensagem explicativa. Sair da tela
-durante a busca cancela a coleta; é necessário tocar em salvar novamente.
-Não há localização em segundo plano ou envio de histórico e coordenadas a um servidor.
-O download de capas faz requisições à Open Library com o identificador da capa,
-sem enviar o histórico, os favoritos ou a localização. O banco
-foi excluído do backup automático e da transferência entre dispositivos nas regras
-do Android. Limpar os dados ou desinstalar o aplicativo pode apagá-lo.
-
-## Organização do código
-
-Tudo fica em `app/src/main/java/com/example/projetofinal`:
-
-| Parte | Responsabilidade |
-| --- | --- |
-| `MainActivity` | Catálogo, filtros e integração com luminosidade |
-| `BookDetailsActivity` | Sinopse e favoritos |
-| `SalvarHistoricoActivity` | Formulário, permissão e registro |
-| `HistoricoActivity` | Consulta do histórico |
-| `data/BookCatalog` | Catálogo inicial |
-| `data/BancoLivros` | SQLite e migração |
-| `model/Book`, `model/RegistroHistorico` | Dados dos livros e registros |
-| `luminosidade/` | Sensor e regras de recomendação |
-| `localizacao/Localizador` | Busca pontual e cancelamento |
-| `view/MedidorLuminosidade` | Desenho customizado |
-
-Novas variáveis e IDs usam português. Os nomes exigidos pelo Android, como
-`onCreate`, seguem a API. Classes do catálogo da segunda etapa conservaram seus nomes.
-
-## Testes e revisão final
-
-Na revisão de entrega, a compilação passou, os **8 testes locais** e os
-**8 testes no emulador** passaram, e o lint terminou **sem erros nem avisos**.
-As imagens das quatro telas foram conferidas. O medidor recebeu uma correção
-para não cortar as bordas em telas de alta densidade; os três testes das telas
-foram repetidos após esse ajuste.
-
-- Testes locais: catálogo, busca por ID, faixas, estabilidade e seleção das recomendações.
-- Testes Android: favoritos, histórico, migração sem perda de dados, validação e ordenação.
-- Testes de telas: Biblioteca completa, detalhes, salvamento sem localização e preservação da aba ao recriar.
-- Lint: revisão estática do código e dos recursos Android.
-
-Com um emulador ou celular conectado:
+Com emulador conectado:
 
 ```powershell
 .\gradlew.bat :app:connectedDebugAndroidTest
 ```
 
-Se o executor de testes Gradle não estiver disponível no cache offline, após compilar
-os APKs é possível executá-los diretamente com as ferramentas do Android SDK:
+Alternativa após compilar os APKs:
 
 ```sh
 adb install -r app/build/outputs/apk/debug/app-debug.apk
@@ -226,34 +163,56 @@ adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 adb shell am instrument -w com.example.projetofinal.test/androidx.test.runner.AndroidJUnitRunner
 ```
 
-Os testes de banco usam arquivos separados, removidos ao final. O teste de tela que
-salva um histórico remove somente o registro criado por ele.
+O teste de rede fica desabilitado por padrão para não depender de serviços externos.
+Para executá-lo explicitamente:
 
-Antes da apresentação, confira no aparelho do grupo:
+```sh
+adb shell am instrument -w -e verificar_rede true -e class com.example.projetofinal.OpenLibraryRedeTest com.example.projetofinal.test/androidx.test.runner.AndroidJUnitRunner
+```
 
-- Sensor real com luz variando, sem depender apenas da simulação.
-- Permissão precisa, aproximada e negada; localização desligada e sem sinal.
-- Favoritos e histórico após fechar e reabrir.
-- Rotação durante a leitura, após salvar e durante a busca de localização.
-- Tela pequena, tema sempre escuro e fonte ampliada.
-- Primeira execução verde do GitHub Actions e download do APK.
+Os testes de banco usam arquivos isolados e removem seus dados ao terminar.
+O teste de histórico no app remove apenas o próprio registro.
 
-## Etapas dos commits
+## APK e automação
 
-1. Base e tela inicial.
-2. Catálogo e detalhes.
-3. Banco e favoritos.
-4. Luminosidade e view customizada.
-5. Histórico e localização.
-6. Revisão, documentação e geração automática do APK.
+APK local: `app/build/outputs/apk/debug/app-debug.apk`.
+Cópia de entrega: `build/entrega/LumiBooks.apk`. Arquivos de build são ignorados pelo Git.
+
+O workflow executa em pushes, pull requests e manualmente, testa e compila o app,
+e publica **LumiBooks-APK** e **LumiBooks-relatorios** nos artefatos do GitHub Actions.
+A execução remota precisa ser conferida pelo grupo. O workflow compila os testes
+Android, mas não executa emulador no GitHub.
+
+O APK debug é adequado à demonstração acadêmica. Builds de máquinas diferentes
+podem ter assinaturas diferentes; não desinstale sem considerar os dados locais.
+Os artefatos duram 30 dias para APK e 14 dias para relatórios; guarde a entrega.
+
+## Organização
+
+Os arquivos Java ficam em `app/src/main/java/com/example/projetofinal`.
+
+| Parte | Responsabilidade |
+| --- | --- |
+| `MainActivity` | Abas, busca, sensor e seleção da importação |
+| `BookDetailsActivity` | Livro, favoritos e ficha de origem |
+| `SalvarHistoricoActivity`, `HistoricoActivity` | Registro e histórico |
+| `data/BancoLivros` | SQLite e migrações |
+| `data/CatalogoOpenLibrary` | Catálogo incluído, Search API e parser |
+| `data/BookCatalog` | Seis livros originais |
+| `ui/EstanteAdapter`, `ui/CarregadorCapas` | Estante e cache de imagens |
+| `ui/AtividadeTematica` | Cores conforme o sensor |
+| `view/CapaLivroView` | Componente gráfico customizado |
+| `luminosidade/`, `localizacao/` | Sensor, classificação e localização |
+
+Novas variáveis e IDs usam português. Nomes exigidos pelo Android e classes
+originais do catálogo conservam seus nomes.
 
 ## Grupo e apresentação
-
-Preencha os dados antes da entrega:
 
 - Integrantes: **a preencher pelo grupo**.
 - Turma e unidade curricular: **a preencher pelo grupo**.
 - Repositório e versão entregue: **a preencher pelo grupo**.
 
-Todos os integrantes devem estar presentes e saber explicar a implementação.
-Consulte o [roteiro de apresentação](docs/APRESENTACAO.md).
+Todos devem estar presentes e saber explicar o código. Antes da apresentação,
+confira sensor físico, permissões de localização, funcionamento offline,
+favoritos após reabrir, fonte ampliada e a execução verde do GitHub Actions.

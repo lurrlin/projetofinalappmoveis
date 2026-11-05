@@ -1,14 +1,16 @@
 <resources>
     <style name="Base.Theme.Projetofinal" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">#80B5FF</item>
-        <item name="colorOnPrimary">#11141A</item>
-        <item name="colorSurface">#101216</item>
-        <item name="colorOnSurface">#F1F2F6</item>
-        <item name="colorSurfaceVariant">#1C2028</item>
-        <item name="colorOnSurfaceVariant">#ADB4C1</item>
-        <item name="colorOutlineVariant">#2C323D</item>
-        <item name="colorSecondaryContainer">#24364D</item>
-        <item name="colorOnSecondaryContainer">#80B5FF</item>
+        <item name="colorPrimary">#F1CC68</item>
+        <item name="colorOnPrimary">#111418</item>
+        <item name="colorSurface">#111418</item>
+        <item name="colorOnSurface">#F5F6F8</item>
+        <item name="colorSurfaceVariant">#1C2026</item>
+        <item name="colorOnSurfaceVariant">#BCC2CC</item>
+        <item name="colorOutlineVariant">#353B44</item>
+        <item name="colorSecondaryContainer">#3B3320</item>
+        <item name="colorOnSecondaryContainer">#F1CC68</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">sans-serif</item>
         <item name="android:windowBackground">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>

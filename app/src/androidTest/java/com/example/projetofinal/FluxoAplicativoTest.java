@@ -49,14 +49,14 @@ public class FluxoAplicativoTest {
             cenario.onActivity(tela -> ((com.google.android.material.bottomnavigation.BottomNavigationView)
                     tela.findViewById(R.id.navegacao)).setSelectedItemId(R.id.menu_biblioteca));
             aguardarBanco();
-            cenario.onActivity(tela -> assertEquals(6, ((LinearLayout) tela.findViewById(R.id.lista_livros)).getChildCount()));
+            cenario.onActivity(tela -> assertTrue(((androidx.recyclerview.widget.RecyclerView) tela.findViewById(R.id.lista_livros)).getAdapter().getItemCount() >= 70));
             capturar("inicio");
             cenario.recreate();
             aguardarBanco();
             cenario.onActivity(tela -> {
                 assertEquals(R.id.menu_biblioteca, ((com.google.android.material.bottomnavigation.BottomNavigationView)
                         tela.findViewById(R.id.navegacao)).getSelectedItemId());
-                assertEquals(6, ((LinearLayout) tela.findViewById(R.id.lista_livros)).getChildCount());
+                assertTrue(((androidx.recyclerview.widget.RecyclerView) tela.findViewById(R.id.lista_livros)).getAdapter().getItemCount() >= 70);
             });
         }
     }
@@ -72,6 +72,24 @@ public class FluxoAplicativoTest {
                 assertTrue(tela.findViewById(R.id.botao_registrar).isEnabled());
             });
             capturar("detalhes");
+        }
+    }
+
+    @Test public void buscaLocalPorTemaEAutorPreservaTextoAoGirar() throws Exception {
+        try (ActivityScenario<MainActivity> cenario = ActivityScenario.launch(MainActivity.class)) {
+            aguardarBanco();
+            cenario.onActivity(tela -> ((com.google.android.material.bottomnavigation.BottomNavigationView)
+                    tela.findViewById(R.id.navegacao)).setSelectedItemId(R.id.menu_biblioteca));
+            aguardarBanco();
+            cenario.onActivity(tela -> {
+                ((TextView) tela.findViewById(R.id.busca_livros)).setText("filosofia");
+                assertTrue(((androidx.recyclerview.widget.RecyclerView) tela.findViewById(R.id.lista_livros)).getAdapter().getItemCount() >= 5);
+                ((TextView) tela.findViewById(R.id.busca_livros)).setText("Machado de Assis");
+                assertEquals(2, ((androidx.recyclerview.widget.RecyclerView) tela.findViewById(R.id.lista_livros)).getAdapter().getItemCount());
+            });
+            cenario.recreate();
+            aguardarBanco();
+            cenario.onActivity(tela -> assertEquals("Machado de Assis", ((TextView) tela.findViewById(R.id.busca_livros)).getText().toString()));
         }
     }
 
@@ -95,6 +113,8 @@ public class FluxoAplicativoTest {
                 });
                 aguardarBanco();
                 assertTrue(BancoLivros.obterInstancia(contexto).existeRegistro(identificador[0]));
+                assertNull(BancoLivros.obterInstancia(contexto).listarHistorico().stream()
+                        .filter(registro -> registro.identificador.equals(identificador[0])).findFirst().get().luminosidade);
                 capturar("registro");
                 cenario.recreate();
                 aguardarBanco();

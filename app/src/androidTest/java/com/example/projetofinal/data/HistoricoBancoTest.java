@@ -69,9 +69,9 @@ public class HistoricoBancoTest {
                 anterior.setVersion(1);
             }
             try (BancoLivros banco = new BancoLivros(contexto, nome)) {
-                assertEquals(6, banco.listar(false).size());
+                assertEquals(70, banco.listar(false).size());
                 assertTrue(banco.ehFavorito("o-hobbit"));
-                assertEquals(3, banco.getReadableDatabase().getVersion());
+                assertEquals(4, banco.getReadableDatabase().getVersion());
                 assertTrue(banco.buscar("o-hobbit").getUrlCapa().startsWith("https://covers.openlibrary.org/"));
                 assertTrue(banco.listarHistorico().isEmpty());
                 banco.salvarRegistro(new RegistroHistorico("apos-migracao", "o-hobbit", "", 1000,

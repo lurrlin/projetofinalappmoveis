@@ -1,12 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/principal" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
- <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
- <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
- <com.google.android.material.button.MaterialButton android:id="@+id/botao_voltar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/voltar" style="@style/Widget.Material3.Button.TextButton"/>
- <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/historico_curto" android:fontFamily="serif" android:textSize="34sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp"/>
- <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/historico_subtitulo" android:textSize="16sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
- <TextView android:id="@+id/estado_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/carregando_livros" android:textSize="14sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="24dp" android:layout_marginBottom="16dp" android:accessibilityLiveRegion="polite"/>
- <LinearLayout android:id="@+id/lista_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
- </LinearLayout>
- </androidx.core.widget.NestedScrollView>
- <com.google.android.material.bottomnavigation.BottomNavigationView android:id="@+id/navegacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/colorSurface" app:menu="@menu/navegacao" app:labelVisibilityMode="labeled"/>
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textSize="14sp" android:fontFamily="sans-serif-medium" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="8dp"/>
+            <TextView style="@style/Texto.Titulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/historico_curto" android:layout_marginTop="12dp"/>
+            <TextView style="@style/Texto.Secundario" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/historico_subtitulo" android:layout_marginTop="4dp"/>
+            <TextView android:id="@+id/estado_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/carregando_livros" android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant" android:layout_marginTop="24dp" android:layout_marginBottom="16dp" android:accessibilityLiveRegion="polite"/>
+            <LinearLayout android:id="@+id/lista_historico" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView android:id="@+id/navegacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/colorSurface" app:menu="@menu/navegacao" app:labelVisibilityMode="labeled" app:itemHorizontalTranslationEnabled="false"/>
 </LinearLayout>
