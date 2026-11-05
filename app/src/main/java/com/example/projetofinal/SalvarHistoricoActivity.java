@@ -20,7 +20,7 @@ import com.example.projetofinal.model.Book;
 import com.example.projetofinal.model.RegistroHistorico;
 import java.util.UUID;
 
-public class SalvarHistoricoActivity extends AppCompatActivity {
+public class SalvarHistoricoActivity extends com.example.projetofinal.ui.AtividadeTematica {
     public static final String EXTRA_LUX = "luminosidade";
     public static final String EXTRA_CLIMA = "clima";
     public static final String EXTRA_SIMULADA = "simulada";

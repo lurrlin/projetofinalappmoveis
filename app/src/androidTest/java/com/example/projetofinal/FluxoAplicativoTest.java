@@ -43,30 +43,20 @@ public class FluxoAplicativoTest {
         }
     }
 
-    @Test public void simulacaoMudaLivrosEPreservaEstadoAoRecriar() throws Exception {
+    @Test public void bibliotecaCompletaEPreservaAbaAoRecriar() throws Exception {
         try (ActivityScenario<MainActivity> cenario = ActivityScenario.launch(MainActivity.class)) {
             aguardarBanco();
-            cenario.onActivity(tela -> {
-                ((MaterialCheckBox) tela.findViewById(R.id.modo_manual)).setChecked(true);
-                ((SeekBar) tela.findViewById(R.id.controle_luminosidade)).setProgress(0);
-                LinearLayout lista = tela.findViewById(R.id.lista_livros);
-                assertEquals(2, lista.getChildCount());
-                assertEquals("O Iluminado", ((TextView) lista.getChildAt(0)
-                        .findViewById(R.id.titulo_livro)).getText().toString());
-            });
+            cenario.onActivity(tela -> ((com.google.android.material.bottomnavigation.BottomNavigationView)
+                    tela.findViewById(R.id.navegacao)).setSelectedItemId(R.id.menu_biblioteca));
+            aguardarBanco();
+            cenario.onActivity(tela -> assertEquals(6, ((LinearLayout) tela.findViewById(R.id.lista_livros)).getChildCount()));
             capturar("inicio");
             cenario.recreate();
             aguardarBanco();
             cenario.onActivity(tela -> {
-                assertTrue(((MaterialCheckBox) tela.findViewById(R.id.modo_manual)).isChecked());
-                assertEquals(0, ((SeekBar) tela.findViewById(R.id.controle_luminosidade)).getProgress());
-                ((SeekBar) tela.findViewById(R.id.controle_luminosidade)).setProgress(1000);
-                LinearLayout lista = tela.findViewById(R.id.lista_livros);
-                assertEquals(2, lista.getChildCount());
-                assertEquals("Harry Potter e a Pedra Filosofal", ((TextView) lista.getChildAt(0)
-                        .findViewById(R.id.titulo_livro)).getText().toString());
-                ((MaterialCheckBox) tela.findViewById(R.id.filtro_clima)).setChecked(false);
-                assertEquals(6, lista.getChildCount());
+                assertEquals(R.id.menu_biblioteca, ((com.google.android.material.bottomnavigation.BottomNavigationView)
+                        tela.findViewById(R.id.navegacao)).getSelectedItemId());
+                assertEquals(6, ((LinearLayout) tela.findViewById(R.id.lista_livros)).getChildCount());
             });
         }
     }

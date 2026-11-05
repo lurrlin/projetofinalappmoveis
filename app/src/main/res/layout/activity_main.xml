@@ -5,25 +5,17 @@
  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
  <TextView  android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textSize="18sp" android:textColor="?attr/colorOnSurface" android:textStyle="bold" android:letterSpacing="0.08" android:layout_marginTop="12dp"/>
  <TextView android:id="@+id/titulo_inicio" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/titulo_descobrir" android:textSize="34sp" android:textColor="?attr/colorOnSurface" android:fontFamily="serif" android:layout_marginTop="24dp"/>
- <TextView  android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/subtitulo_descobrir" android:textSize="16sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="8dp" android:alpha="0.7"/>
- <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:strokeWidth="0dp" app:cardBackgroundColor="?attr/colorSurfaceVariant">
+ <TextView android:id="@+id/subtitulo_inicio" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/subtitulo_descobrir" android:textSize="16sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="8dp" android:alpha="0.7"/>
+ <com.google.android.material.card.MaterialCardView android:id="@+id/cartao_ambiente" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="20dp" app:cardElevation="0dp" app:strokeWidth="0dp" app:cardBackgroundColor="?attr/colorSurfaceVariant">
  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
  <TextView  android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/luz_compacta" android:textSize="14sp" android:textColor="?attr/colorOnSurface" android:textStyle="bold"/>
  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
  <TextView android:id="@+id/leitura_luminosidade" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/medidor_aguardando" android:textSize="18sp" android:textColor="?attr/colorOnSurface"/>
  <com.example.projetofinal.view.MedidorLuminosidade android:id="@+id/medidor_luminosidade" android:layout_width="104dp" android:layout_height="64dp" />
  </LinearLayout>
- <com.google.android.material.button.MaterialButton android:id="@+id/botao_ajustar_luz" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ajustar_luz" style="@style/Widget.Material3.Button.TextButton" />
- <LinearLayout android:id="@+id/painel_ajustes_luz" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
- <TextView android:id="@+id/origem_luminosidade" android:layout_width="match_parent" android:layout_height="wrap_content"  android:textSize="14sp" android:textColor="?attr/colorOnSurface" />
- <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/modo_manual" android:layout_width="match_parent" android:layout_height="wrap_content" android:saveEnabled="false" android:text="@string/modo_manual"/>
- <SeekBar android:id="@+id/controle_luminosidade" android:layout_width="match_parent" android:layout_height="48dp" android:max="1000" android:progress="200" android:saveEnabled="false" android:visibility="gone" android:contentDescription="@string/controle_luz_descricao"/>
- <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/filtro_clima" android:layout_width="match_parent" android:layout_height="wrap_content" android:saveEnabled="false" android:checked="true" android:text="@string/filtro_clima"/>
- </LinearLayout>
  </LinearLayout>
  </com.google.android.material.card.MaterialCardView>
  <TextView  android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/titulo_selecao" android:textSize="24sp" android:textColor="?attr/colorOnSurface" android:textStyle="bold" android:layout_marginTop="28dp" android:layout_marginBottom="12dp"/>
- <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/filtro_favoritos" android:layout_width="match_parent" android:layout_height="wrap_content" android:saveEnabled="false" android:visibility="gone" android:text="@string/somente_favoritos"/>
  <TextView android:id="@+id/estado_catalogo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/carregando_livros" android:textSize="16sp" android:textColor="?attr/colorOnSurface" android:accessibilityLiveRegion="polite"/>
  <LinearLayout android:id="@+id/lista_livros" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
  <TextView  android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/fonte_capas" android:textSize="12sp" android:textColor="?attr/colorOnSurface" android:layout_marginTop="16dp" android:alpha="0.65"/>

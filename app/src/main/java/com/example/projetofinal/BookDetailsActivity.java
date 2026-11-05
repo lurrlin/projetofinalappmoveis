@@ -14,7 +14,7 @@ import com.example.projetofinal.data.BancoLivros;
 import com.example.projetofinal.model.Book;
 import com.example.projetofinal.ui.CarregadorCapas;
 
-public class BookDetailsActivity extends AppCompatActivity {
+public class BookDetailsActivity extends com.example.projetofinal.ui.AtividadeTematica {
     public static final String EXTRA_ID_LIVRO = "book_id";
     private BancoLivros banco;
     private MaterialButton botaoFavorito;

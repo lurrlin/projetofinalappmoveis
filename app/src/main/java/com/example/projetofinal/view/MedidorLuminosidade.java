@@ -14,8 +14,8 @@ import com.example.projetofinal.model.Book;
 public final class MedidorLuminosidade extends View {
     private final Paint pincel = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final RectF arco = new RectF();
-    private final int[] cores = {Color.rgb(132, 112, 187), Color.rgb(67, 151, 141),
-            Color.rgb(222, 175, 70)};
+    private final int[] cores = {Color.rgb(255, 123, 131), Color.rgb(128, 181, 255),
+            Color.rgb(114, 214, 160)};
     private Book.Mood clima;
 
     public MedidorLuminosidade(Context contexto, AttributeSet atributos) {

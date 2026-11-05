@@ -31,9 +31,14 @@ precisam ser confirmadas pelo grupo.
 
 ### Nova interface — branch melhorias
 
-A navegação inferior reúne Descobrir, Minha estante e Histórico. As capas aparecem
-nos cartões e nos detalhes; o medidor ficou compacto e os controles estão em
-“Ajustar ambiente”. Minha estante mostra os favoritos sem restringir pelo clima.
+A navegação inferior reúne Descobrir, Biblioteca, Favoritos e Histórico.
+Biblioteca mostra todos os livros; Favoritos mostra somente os salvos, sem filtro
+de luz. O Histórico usa cartões com capa, data e clima; as coordenadas aparecem
+ao tocar em “Ver local deste registro”.
+
+O aplicativo permanece em modo escuro. Os realces dos botões e da navegação mudam
+com o sensor: vermelho para pouca luz, azul para luz intermediária e verde para
+luz forte. Sem leitura disponível, o realce inicial é azul e o catálogo permanece acessível.
 
 As capas vêm da [Open Library](https://openlibrary.org/developers/api), com IDs
 conferidos pela busca pública. Algumas imagens são de edições em inglês; os títulos
@@ -48,17 +53,19 @@ para uma integração de catálogo do Skoob; por isso a alternativa adotada foi 
 
 1. Abra o LumiBooks. O sensor começa a medir a luz na tela inicial.
 2. Veja o clima no medidor e os livros recomendados.
-3. Para testar manualmente, marque **Simular luminosidade** e mova a barra.
-4. Em **Ajustar ambiente**, desmarque **Recomendar pela luminosidade** para explorar o catálogo inteiro.
+3. No emulador, use **⋮ → Virtual sensors → Additional sensors → Light** para ajustar os lux.
+4. Abra **Biblioteca** para explorar todos os livros, independentemente da luz.
 5. Abra **Ver detalhes** para ler a sinopse e adicionar ou remover um favorito.
-6. Use **Minha estante** na navegação inferior para acessar os favoritos.
+6. Use **Favoritos** na navegação inferior para acessar os livros salvos.
 7. Nos detalhes, toque em **Registrar no histórico** e depois **Salvar registro**.
 8. Marque a opção de localização apenas se quiser incluí-la.
 9. Acesse **Ver histórico** no catálogo ou na tela de registro.
 
-Sem sensor de luz, a simulação é ativada automaticamente e identificada como tal.
-Sem uma leitura disponível, o catálogo pode ser consultado desmarcando o filtro
-de luminosidade. Isso não substitui a demonstração do sensor real exigida no trabalho.
+Não há slider ou modo manual dentro do app. Sem leitura, Descobrir apresenta todos
+os livros e informa a ausência do sensor. O sensor virtual do emulador envia os mesmos
+eventos TYPE_LIGHT usados em um aparelho físico.
+Veja os [controles do emulador](https://developer.android.com/studio/run/emulator-extended-controls).
+Alguns controles exigem abrir o emulador em janela separada.
 
 ## Abrir no Android Studio
 
@@ -123,7 +130,7 @@ configurado durante a preparação da entrega.
 
 ## Como funcionam as recomendações
 
-| Primeira leitura ou simulação | Clima |
+| Primeira leitura do sensor | Clima |
 | --- | --- |
 | 0 até menos de 50 lux | Entre sombras |
 | 50 até menos de 300 lux | Meia-luz |
@@ -133,7 +140,7 @@ As faixas são decisões do projeto. No sensor real, pequenas margens evitam
 trocar os livros repetidamente perto dos limites: sombras passa a meia-luz a
 partir de 60 lux, e meia-luz volta a sombras abaixo de 40. Meia-luz passa a luz
 do dia a partir de 330, e luz do dia volta abaixo de 270. Mudanças grandes podem
-pular diretamente de uma ponta à outra. A simulação usa os limites exatos da tabela.
+pular diretamente de uma ponta à outra. O sensor virtual usa as mesmas regras do sensor físico.
 
 `SensorLuminosidade` registra TYPE_LIGHT apenas enquanto a tela inicial está
 em primeiro plano. Ao retornar, aguarda uma nova leitura. Valores negativos,
@@ -201,7 +208,7 @@ foram repetidos após esse ajuste.
 
 - Testes locais: catálogo, busca por ID, faixas, estabilidade e seleção das recomendações.
 - Testes Android: favoritos, histórico, migração sem perda de dados, validação e ordenação.
-- Testes de telas: simulação, detalhes, salvamento sem localização e recriação de tela.
+- Testes de telas: Biblioteca completa, detalhes, salvamento sem localização e preservação da aba ao recriar.
 - Lint: revisão estática do código e dos recursos Android.
 
 Com um emulador ou celular conectado:
@@ -228,7 +235,7 @@ Antes da apresentação, confira no aparelho do grupo:
 - Permissão precisa, aproximada e negada; localização desligada e sem sinal.
 - Favoritos e histórico após fechar e reabrir.
 - Rotação durante a leitura, após salvar e durante a busca de localização.
-- Tela pequena, tema claro/escuro e fonte ampliada.
+- Tela pequena, tema sempre escuro e fonte ampliada.
 - Primeira execução verde do GitHub Actions e download do APK.
 
 ## Etapas dos commits

@@ -1,14 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Projetofinal" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/verde_lumibooks</item>
-        <item name="colorSurface">#FAF8F3</item>
-        <item name="colorSurfaceVariant">#E7EDE5</item>
-        <item name="colorOutlineVariant">#DCE2D9</item>
-        <item name="colorSecondaryContainer">#DCE8DC</item>
-        <item name="colorOnSecondaryContainer">#203D36</item>
+<resources>
+    <style name="Base.Theme.Projetofinal" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#80B5FF</item>
+        <item name="colorOnPrimary">#11141A</item>
+        <item name="colorSurface">#101216</item>
+        <item name="colorOnSurface">#F1F2F6</item>
+        <item name="colorSurfaceVariant">#1C2028</item>
+        <item name="colorOnSurfaceVariant">#ADB4C1</item>
+        <item name="colorOutlineVariant">#2C323D</item>
+        <item name="colorSecondaryContainer">#24364D</item>
+        <item name="colorOnSecondaryContainer">#80B5FF</item>
         <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
-
-    <style name="Theme.Projetofinal" parent="Base.Theme.Projetofinal" />
+    <style name="Theme.Projetofinal" parent="Base.Theme.Projetofinal"/>
 </resources>

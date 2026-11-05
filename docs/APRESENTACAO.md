@@ -15,11 +15,12 @@
    Explique os três climas e mostre o catálogo.
 2. **Sensor e view customizada (2 minutos):** varie a luz no sensor real e mostre
    o valor em lux, o ponteiro e os livros mudando. Explique que os arcos são
-   desenhados no código. Mostre a simulação apenas como alternativa de teste.
-3. **Banco e favoritos (1 minuto):** favorite um livro, filtre a lista, feche e
+   desenhados no código e os realces mudam entre vermelho, azul e verde. No
+   emulador, use More → Virtual sensors → Additional sensors → Light.
+3. **Banco e favoritos (1 minuto):** favorite um livro, abra a aba Favoritos, feche e
    reabra o app. Explique que os dados são recuperados do SQLite.
 4. **Localização e histórico (2 minutos):** abra um livro, registre com localização
-   e mostre as coordenadas no histórico. Explique que a permissão pode ser negada
+   e abra “Ver local deste registro” no histórico. Explique que a permissão pode ser negada
    e que o app continua funcionando sem coordenadas.
 5. **Código e testes (1 minuto):** mostre as classes responsáveis por sensor,
    desenho, banco e localização. Apresente os resultados dos testes.
@@ -32,13 +33,13 @@
 - As faixas de recomendação são escolhas do grupo. Pequenas margens evitam trocas
   repetidas perto dos limites.
 - A view customizada é a classe MedidorLuminosidade, com Canvas e Paint.
-- Os livros e favoritos ficam no SQLite. A versão 2 acrescentou o histórico sem
-  apagar os favoritos da versão anterior.
+- Os livros, favoritos e registros ficam no SQLite. As migrações acrescentam
+  histórico e capas sem apagar os dados anteriores.
 - As consultas ao banco não bloqueiam a interface.
-- O sensor para quando a tela inicial perde o primeiro plano.
+- Cada tela interrompe sua leitura do sensor ao perder o primeiro plano.
 - A localização é opcional, tem limite de espera e não é coletada em segundo plano.
 - A luminosidade salva é a de quando os detalhes foram abertos; a localização é
-  obtida ao salvar. Leituras simuladas são identificadas.
+  obtida ao salvar. Registros antigos feitos no modo manual mantêm essa indicação.
 - O GitHub Actions compila, roda testes locais e lint e gera um APK debug.
 - A simulação e os testes em emulador não substituem a demonstração no celular.
 
