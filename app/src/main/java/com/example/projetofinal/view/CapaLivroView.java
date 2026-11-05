@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatImageView;
 
-/** Capa própria: recorte arredondado, lombada, alternativa desenhada e marcador de favorito. */
 public final class CapaLivroView extends AppCompatImageView {
     private final Paint pincel = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path caminho = new Path();
@@ -43,7 +42,6 @@ public final class CapaLivroView extends AppCompatImageView {
         tela.clipPath(caminho);
         tela.drawColor(Color.rgb(35, 39, 44));
         if (getDrawable() == null) {
-            // Desenho original, visível offline e durante o carregamento.
             pincel.setColor((corRealce & 0xffffff) | 0x33000000);
             tela.drawRect(largura * .08f, 0, largura * .12f, altura, pincel);
             pincel.setColor(corRealce);

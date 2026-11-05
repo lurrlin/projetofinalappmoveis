@@ -1,6 +1,5 @@
 package com.example.projetofinal.data;
 
-/** Identificadores conferidos pela Search API da Open Library. Algumas edições são em inglês. */
 public final class CapasIniciais {
     private CapasIniciais() { }
     public static String obterUrl(String identificador) {

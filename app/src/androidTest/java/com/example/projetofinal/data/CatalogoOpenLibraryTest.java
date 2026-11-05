@@ -84,7 +84,7 @@ public class CatalogoOpenLibraryTest {
                 assertEquals("Sinopse existente", banco.buscar("o-hobbit").getSynopsis());
                 assertEquals("Fantasia", banco.buscar("o-hobbit").getGenero());
                 assertEquals(-23.55, banco.listarHistorico().get(0).latitude, .00001);
-                assertEquals(4, banco.getReadableDatabase().getVersion());
+                assertEquals(5, banco.getReadableDatabase().getVersion());
             }
         } finally { contexto.deleteDatabase(nome); }
     }

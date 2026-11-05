@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -43,7 +42,7 @@ public class BookDetailsActivity extends com.example.projetofinal.ui.AtividadeTe
         botaoFavorito.setOnClickListener(tela -> salvarFavorito());
         findViewById(R.id.botao_registrar).setOnClickListener(tela -> {
             Intent destino = new Intent(this, SalvarHistoricoActivity.class);
-            if (getIntent().getExtras() != null) destino.putExtras(getIntent().getExtras());
+            destino.putExtra(EXTRA_ID_LIVRO, identificador);
             startActivity(destino);
         });
         BancoLivros.EXECUTOR.execute(() -> {
@@ -121,11 +120,4 @@ public class BookDetailsActivity extends com.example.projetofinal.ui.AtividadeTe
         Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
     }
 
-    static int rotuloClima(Book.Mood clima) {
-        switch (clima) {
-            case LIGHT: return R.string.light;
-            case MEDIUM: return R.string.medium;
-            default: return R.string.dark;
-        }
-    }
 }

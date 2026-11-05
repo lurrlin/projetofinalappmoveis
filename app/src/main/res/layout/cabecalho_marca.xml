@@ -1,0 +1,12 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/titulo_marca"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:drawableStartCompat="@drawable/marca_lumibooks_amarelo"
+    android:drawablePadding="10dp"
+    android:gravity="center_vertical"
+    android:fontFamily="sans-serif-medium"
+    android:text="@string/app_name"
+    android:textColor="?attr/colorOnSurface"
+    android:textSize="18sp" />

@@ -5,17 +5,16 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.projetofinal.R;
 import com.example.projetofinal.MainActivity;
-import com.example.projetofinal.HistoricoActivity;
 import com.example.projetofinal.model.Book;
 import com.example.projetofinal.luminosidade.SensorLuminosidade;
 import com.example.projetofinal.luminosidade.ClassificadorLuminosidade;
 
-/** Mantém o fundo escuro e atualiza os realces sem recriar a tela. */
 public abstract class AtividadeTematica extends AppCompatActivity {
     private static Book.Mood clima;
     private SensorLuminosidade sensorTema;
@@ -49,6 +48,13 @@ public abstract class AtividadeTematica extends AppCompatActivity {
 
     protected void aplicarCores() {
         colorir(findViewById(android.R.id.content), corAtual());
+        TextView tituloMarca = findViewById(R.id.titulo_marca);
+        if (tituloMarca != null) {
+            tituloMarca.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    clima == Book.Mood.DARK ? R.drawable.marca_lumibooks_vermelho
+                            : clima == Book.Mood.LIGHT ? R.drawable.marca_lumibooks_verde : R.drawable.marca_lumibooks_amarelo,
+                    0, 0, 0);
+        }
     }
 
     private void colorir(View vista, int cor) {

@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-/** Registra somente TYPE_LIGHT e permite desligar a leitura ao sair da tela. */
 public final class SensorLuminosidade implements SensorEventListener {
     public interface AoLerLuminosidade {
         void receber(float lux);

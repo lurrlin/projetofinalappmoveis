@@ -1,6 +1,5 @@
 package com.example.projetofinal.model;
 
-/** Livro do catálogo. O identificador permanece estável entre as telas. */
 public final class Book {
     public enum Mood { LIGHT, MEDIUM, DARK }
 

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/** Acesso local, serializado fora da interface. A instância acompanha a aplicação. */
 public final class BancoLivros extends SQLiteOpenHelper {
     public static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private static BancoLivros instancia;
@@ -24,9 +23,8 @@ public final class BancoLivros extends SQLiteOpenHelper {
         return instancia;
     }
 
-    // Nome separado permite testar sem alterar o banco usado pelo usuário.
     public BancoLivros(Context contexto, String nomeBanco) {
-        super(contexto.getApplicationContext(), nomeBanco, null, 4);
+        super(contexto.getApplicationContext(), nomeBanco, null, 5);
         this.contexto = contexto.getApplicationContext();
     }
 
@@ -68,6 +66,9 @@ public final class BancoLivros extends SQLiteOpenHelper {
             banco.execSQL("ALTER TABLE livros ADD COLUMN chave_open_library TEXT NOT NULL DEFAULT ''");
             ampliarCatalogo(banco);
         }
+        if (versaoAntiga >= 2 && versaoAntiga < 5) {
+            banco.execSQL("ALTER TABLE historico ADD COLUMN endereco_aproximado TEXT");
+        }
     }
 
     private void ampliarCatalogo(SQLiteDatabase banco) {
@@ -78,7 +79,6 @@ public final class BancoLivros extends SQLiteOpenHelper {
         for (Book livro : CatalogoOpenLibrary.lerCatalogoInicial(contexto)) inserirLivro(banco, livro);
     }
 
-    /** Não substitui linhas existentes: preserva favoritos, IDs e referências do histórico. */
     private boolean inserirLivro(SQLiteDatabase banco, Book livro) {
         try (Cursor existente = banco.query("livros", new String[]{"id"},
                 "id = ? OR (chave_open_library != '' AND chave_open_library = ?)",
@@ -112,7 +112,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
     private void criarHistorico(SQLiteDatabase banco) {
         banco.execSQL("CREATE TABLE historico (id TEXT PRIMARY KEY, id_livro TEXT NOT NULL "
                 + "REFERENCES livros(id), data INTEGER NOT NULL, luminosidade REAL, clima TEXT, "
-                + "simulada INTEGER NOT NULL, latitude REAL, longitude REAL, precisao REAL)");
+                + "simulada INTEGER NOT NULL, latitude REAL, longitude REAL, precisao REAL, endereco_aproximado TEXT)");
         banco.execSQL("CREATE INDEX indice_historico_data ON historico(data DESC)");
     }
 
@@ -144,7 +144,6 @@ public final class BancoLivros extends SQLiteOpenHelper {
         SQLiteDatabase banco = getWritableDatabase();
         banco.beginTransaction();
         try {
-            // O mesmo formulário conserva seu ID após uma rotação: não duplica a gravação.
             if (!existeRegistro(registro.identificador)) {
                 ContentValues valores = new ContentValues();
                 valores.put("id", registro.identificador);
@@ -156,6 +155,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
                 valores.put("latitude", registro.latitude);
                 valores.put("longitude", registro.longitude);
                 valores.put("precisao", registro.precisao);
+                valores.put("endereco_aproximado", registro.enderecoAproximado);
                 banco.insertOrThrow("historico", null, valores);
             }
             banco.setTransactionSuccessful();
@@ -164,12 +164,19 @@ public final class BancoLivros extends SQLiteOpenHelper {
         }
     }
 
-    /** Exibe os últimos 100 registros; os demais continuam armazenados. */
+    public void salvarEnderecoRegistro(String identificador, String endereco) {
+        if (endereco == null || endereco.trim().isEmpty()) return;
+        ContentValues valores = new ContentValues();
+        valores.put("endereco_aproximado", endereco);
+        getWritableDatabase().update("historico", valores, "id = ? AND latitude IS NOT NULL",
+                new String[]{identificador});
+    }
+
     public List<RegistroHistorico> listarHistorico() {
         List<RegistroHistorico> registros = new ArrayList<>();
         try (Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT h.id, h.id_livro, l.titulo, h.data, h.luminosidade, h.clima, "
-                + "h.simulada, h.latitude, h.longitude, h.precisao FROM historico h "
+                + "h.simulada, h.latitude, h.longitude, h.precisao, h.endereco_aproximado FROM historico h "
                 + "JOIN livros l ON l.id = h.id_livro ORDER BY h.data DESC, h.rowid DESC LIMIT 100", null)) {
             while (cursor.moveToNext()) {
                 registros.add(new RegistroHistorico(cursor.getString(0), cursor.getString(1),
@@ -177,7 +184,7 @@ public final class BancoLivros extends SQLiteOpenHelper {
                         cursor.isNull(4) ? null : cursor.getFloat(4), cursor.getString(5),
                         cursor.getInt(6) == 1, cursor.isNull(7) ? null : cursor.getDouble(7),
                         cursor.isNull(8) ? null : cursor.getDouble(8),
-                        cursor.isNull(9) ? null : cursor.getFloat(9)));
+                        cursor.isNull(9) ? null : cursor.getFloat(9), cursor.getString(10)));
             }
         }
         return registros;

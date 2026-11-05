@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.example.projetofinal.data.BancoLivros;
-import com.example.projetofinal.model.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.io.File;
@@ -31,7 +29,6 @@ public class FluxoAplicativoTest {
 
     private void capturar(String nome) throws Exception {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-        // Aguarda a composição do quadro, além da fila de eventos da interface.
         android.os.SystemClock.sleep(250);
         Bitmap imagem = InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();
         assertNotNull(imagem);
@@ -96,9 +93,6 @@ public class FluxoAplicativoTest {
     @Test public void salvaSemLocalizacaoESemDuplicarAoRecriar() throws Exception {
         Intent destino = new Intent(contexto, SalvarHistoricoActivity.class);
         destino.putExtra(BookDetailsActivity.EXTRA_ID_LIVRO, "o-hobbit");
-        destino.putExtra(SalvarHistoricoActivity.EXTRA_LUX, 500f);
-        destino.putExtra(SalvarHistoricoActivity.EXTRA_CLIMA, Book.Mood.LIGHT.name());
-        destino.putExtra(SalvarHistoricoActivity.EXTRA_SIMULADA, true);
         String[] identificador = new String[1];
         try {
             try (ActivityScenario<SalvarHistoricoActivity> cenario = ActivityScenario.launch(destino)) {

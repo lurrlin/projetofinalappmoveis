@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,9 +20,6 @@ import com.example.projetofinal.model.RegistroHistorico;
 import java.util.UUID;
 
 public class SalvarHistoricoActivity extends com.example.projetofinal.ui.AtividadeTematica {
-    public static final String EXTRA_LUX = "luminosidade";
-    public static final String EXTRA_CLIMA = "clima";
-    public static final String EXTRA_SIMULADA = "simulada";
     private BancoLivros banco;
     private Localizador localizador;
     private MaterialButton botaoSalvar;
@@ -56,8 +52,6 @@ public class SalvarHistoricoActivity extends com.example.projetofinal.ui.Ativida
         botaoSalvar = findViewById(R.id.botao_salvar_historico);
         incluirLocal = findViewById(R.id.incluir_localizacao);
         situacao = findViewById(R.id.estado_registro);
-        TextView contextoRegistro = findViewById(R.id.contexto_registro);
-        contextoRegistro.setText(R.string.registro_descricao);
         findViewById(R.id.botao_voltar).setOnClickListener(tela -> finish());
         findViewById(R.id.botao_ver_historico).setOnClickListener(tela ->
                 startActivity(new Intent(this, HistoricoActivity.class)));

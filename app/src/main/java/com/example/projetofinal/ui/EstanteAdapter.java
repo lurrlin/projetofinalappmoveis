@@ -12,7 +12,6 @@ import com.example.projetofinal.view.CapaLivroView;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Recicla as capas visíveis, sem criar dezenas de cartões e downloads de uma vez. */
 public final class EstanteAdapter extends RecyclerView.Adapter<EstanteAdapter.Cartao> {
     public interface AoAbrir { void abrir(Book livro); }
     private final AoAbrir aoAbrir;

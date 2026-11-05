@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.LruCache;
 import android.widget.ImageView;
-import com.example.projetofinal.R;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,6 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/** Capas fora da interface, com cache no aparelho e imagem alternativa sem conexão. */
 public final class CarregadorCapas {
     private static final ExecutorService FILA = Executors.newSingleThreadExecutor();
     private static final Handler INTERFACE = new Handler(Looper.getMainLooper());
@@ -79,7 +77,6 @@ public final class CarregadorCapas {
                     Thread.currentThread().interrupt();
                     return;
                 } catch (Exception erro) {
-                    // Mantém a imagem alternativa; o catálogo continua utilizável offline.
                     android.util.Log.w("LumiBooksCapas", "Não foi possível carregar a capa", erro);
                 } finally {
                     if (conexao != null) conexao.disconnect();

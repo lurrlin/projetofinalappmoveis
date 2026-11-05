@@ -1,8 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="app_name">LumiBooks</string>
-    <string name="light">Luz do dia</string>
-    <string name="medium">Meia-luz</string>
-    <string name="dark">Entre sombras</string>
     <string name="synopsis">Sobre o livro</string>
     <string name="book_not_found">Livro não encontrado.</string>
     <string name="carregando_livros">Carregando livros…</string>
@@ -17,20 +14,21 @@
     <string name="ver_historico">Ver histórico</string>
     <string name="incluir_localizacao">Incluir minha localização neste registro</string>
     <string name="explicacao_registro">Tudo pronto para guardar esta leitura.</string>
-    <string name="privacidade_localizacao">A localização é opcional e fica apenas neste aparelho. Sem permissão ou sinal, o registro será salvo sem ela.</string>
+    <string name="privacidade_localizacao">A localização é opcional e o registro fica neste aparelho. Para encontrar o endereço aproximado, o Android pode consultar um serviço online. Sem permissão ou sinal, salvamos sem localização.</string>
     <string name="salvar_registro">Salvar registro</string>
     <string name="buscando_localizacao">Buscando localização… Isso pode levar até 20 segundos.</string>
     <string name="salvando_historico">Salvando registro…</string>
     <string name="salvo_com_local">Registro salvo com localização.</string>
     <string name="salvo_sem_local">Registro salvo sem localização.</string>
     <string name="salvo_permissao_negada">Permissão não concedida. Registro salvo sem localização.</string>
-    <string name="salvo_local_indisponivel">Localização indisponível. Registro salvo sem coordenadas.</string>
+    <string name="salvo_local_indisponivel">Localização indisponível. Registro salvo sem localização.</string>
     <string name="localizacao_cancelada">A busca de localização foi cancelada ao sair da tela. Toque em salvar para tentar novamente.</string>
     <string name="registro_ja_salvo">Este registro já foi salvo no histórico.</string>
     <string name="erro_historico">Não foi possível acessar o histórico. Volte e tente novamente.</string>
     <string name="historico_vazio">Nenhum registro ainda. Abra um livro e toque em “Registrar no histórico”.</string>
     <string name="registro_sem_local">Sem localização neste registro.</string>
-    <string name="coordenadas_registro">Latitude: %1$.5f • Longitude: %2$.5f\nPrecisão estimada: %3$.0f metros</string>
+    <string name="buscando_endereco">Buscando bairro, cidade e estado…</string>
+    <string name="endereco_indisponivel">Endereço aproximado indisponível. Confira a conexão e toque em “Ver local” novamente para tentar.</string>
     <string name="voltar">Voltar</string>
     <string name="aba_descobrir">Descobrir</string>
     <string name="titulo_descobrir">Sua próxima leitura</string>

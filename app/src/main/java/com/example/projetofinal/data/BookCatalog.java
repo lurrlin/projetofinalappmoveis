@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/** Catálogo inicial offline. As sinopses são resumos escritos para o projeto. */
 public final class BookCatalog {
     private BookCatalog() { }
 

@@ -4,7 +4,6 @@ import com.example.projetofinal.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Faixas escolhidas para a experiência do LumiBooks, não uma norma de iluminação. */
 public final class ClassificadorLuminosidade {
     private ClassificadorLuminosidade() { }
 
@@ -19,7 +18,6 @@ public final class ClassificadorLuminosidade {
         return Book.Mood.LIGHT;
     }
 
-    /** Margens evitam trocar os livros repetidamente quando a luz oscila no limite. */
     public static Book.Mood classificarSensor(float lux, Book.Mood anterior) {
         Book.Mood inicial = classificar(lux);
         if (anterior == null) return inicial;

@@ -1,6 +1,5 @@
 package com.example.projetofinal.model;
 
-/** Retrato da escolha do usuário, com localização opcional. */
 public final class RegistroHistorico {
     public final String identificador;
     public final String idLivro;
@@ -12,10 +11,18 @@ public final class RegistroHistorico {
     public final Double latitude;
     public final Double longitude;
     public final Float precisao;
+    public final String enderecoAproximado;
 
     public RegistroHistorico(String identificador, String idLivro, String titulo, long data,
             Float luminosidade, String clima, boolean simulada,
             Double latitude, Double longitude, Float precisao) {
+        this(identificador, idLivro, titulo, data, luminosidade, clima, simulada,
+                latitude, longitude, precisao, null);
+    }
+
+    public RegistroHistorico(String identificador, String idLivro, String titulo, long data,
+            Float luminosidade, String clima, boolean simulada,
+            Double latitude, Double longitude, Float precisao, String enderecoAproximado) {
         this.identificador = identificador;
         this.idLivro = idLivro;
         this.titulo = titulo;
@@ -26,5 +33,6 @@ public final class RegistroHistorico {
         this.latitude = latitude;
         this.longitude = longitude;
         this.precisao = precisao;
+        this.enderecoAproximado = enderecoAproximado;
     }
 }

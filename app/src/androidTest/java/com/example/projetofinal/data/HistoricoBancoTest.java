@@ -71,12 +71,48 @@ public class HistoricoBancoTest {
             try (BancoLivros banco = new BancoLivros(contexto, nome)) {
                 assertEquals(70, banco.listar(false).size());
                 assertTrue(banco.ehFavorito("o-hobbit"));
-                assertEquals(4, banco.getReadableDatabase().getVersion());
+                assertEquals(5, banco.getReadableDatabase().getVersion());
                 assertTrue(banco.buscar("o-hobbit").getUrlCapa().startsWith("https://covers.openlibrary.org/"));
                 assertTrue(banco.listarHistorico().isEmpty());
                 banco.salvarRegistro(new RegistroHistorico("apos-migracao", "o-hobbit", "", 1000,
                         null, null, false, null, null, null));
                 assertEquals(1, banco.listarHistorico().size());
+            }
+        } finally {
+            contexto.deleteDatabase(nome);
+        }
+    }
+
+    @Test public void migracaoDaVersaoQuatroPreservaRegistroEGuardaEndereco() {
+        String nome = "teste_endereco_" + System.nanoTime() + ".db";
+        try {
+            try (SQLiteDatabase anterior = contexto.openOrCreateDatabase(nome, Context.MODE_PRIVATE, null)) {
+                anterior.execSQL("CREATE TABLE livros (id TEXT PRIMARY KEY, titulo TEXT NOT NULL, autor TEXT NOT NULL, "
+                        + "clima TEXT NOT NULL, sinopse TEXT NOT NULL, favorito INTEGER NOT NULL DEFAULT 0, "
+                        + "url_capa TEXT NOT NULL DEFAULT '', genero TEXT NOT NULL DEFAULT 'Literatura', "
+                        + "chave_open_library TEXT NOT NULL DEFAULT '')");
+                anterior.execSQL("INSERT INTO livros (id, titulo, autor, clima, sinopse, favorito) "
+                        + "VALUES ('o-hobbit', 'O Hobbit', 'J. R. R. Tolkien', 'LIGHT', 'Sinopse existente', 1)");
+                anterior.execSQL("CREATE TABLE historico (id TEXT PRIMARY KEY, id_livro TEXT NOT NULL REFERENCES livros(id), "
+                        + "data INTEGER NOT NULL, luminosidade REAL, clima TEXT, simulada INTEGER NOT NULL, "
+                        + "latitude REAL, longitude REAL, precisao REAL)");
+                anterior.execSQL("INSERT INTO historico VALUES ('antigo', 'o-hobbit', 1000, null, null, 0, -27.59, -48.55, 20)");
+                anterior.setVersion(4);
+            }
+            try (BancoLivros banco = new BancoLivros(contexto, nome)) {
+                RegistroHistorico registro = banco.listarHistorico().get(0);
+                assertEquals(5, banco.getReadableDatabase().getVersion());
+                assertTrue(banco.ehFavorito("o-hobbit"));
+                assertEquals(-27.59, registro.latitude, .00001);
+                assertEquals(1000, registro.data);
+                assertNull(registro.enderecoAproximado);
+                banco.salvarEnderecoRegistro("antigo", "Centro · Florianópolis · Santa Catarina");
+                banco.salvarEnderecoRegistro("antigo", null);
+            }
+            try (BancoLivros banco = new BancoLivros(contexto, nome)) {
+                assertEquals(1, banco.listarHistorico().size());
+                assertEquals("Centro · Florianópolis · Santa Catarina",
+                        banco.listarHistorico().get(0).enderecoAproximado);
             }
         } finally {
             contexto.deleteDatabase(nome);

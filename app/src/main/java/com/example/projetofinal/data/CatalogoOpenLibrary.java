@@ -16,7 +16,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/** Search API: consultas sob demanda, resultados em cache e limite de uma chamada por segundo. */
 public final class CatalogoOpenLibrary {
     public static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private static long ultimaConsulta;

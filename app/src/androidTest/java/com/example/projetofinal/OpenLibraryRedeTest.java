@@ -19,7 +19,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 
-/** Teste opcional de integração real: habilitar com -e verificar_rede true. */
 @RunWith(AndroidJUnit4.class)
 public class OpenLibraryRedeTest {
     @Test public void consultaApiRealImportaEmBancoIsoladoEAbreSeletor() throws Exception {

@@ -15,7 +15,6 @@ import androidx.core.util.Consumer;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Busca pontual em primeiro plano; termina na primeira posição recente ou após 20 s. */
 public final class Localizador {
     private final Context contexto;
     private final LocationManager gerenciador;
