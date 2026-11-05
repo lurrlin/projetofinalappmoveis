@@ -2,7 +2,7 @@
     <style name="Base.Theme.Projetofinal" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">#F1CC68</item>
         <item name="colorOnPrimary">#111418</item>
-        <item name="colorSurface">#111418</item>
+        <item name="colorSurface">@color/fundo_aplicativo</item>
         <item name="colorOnSurface">#F5F6F8</item>
         <item name="colorSurfaceVariant">#1C2026</item>
         <item name="colorOnSurfaceVariant">#BCC2CC</item>
@@ -11,7 +11,7 @@
         <item name="colorOnSecondaryContainer">#F1CC68</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="fontFamily">sans-serif</item>
-        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:windowBackground">@color/fundo_aplicativo</item>
         <item name="android:windowLightStatusBar">false</item>
     </style>
     <style name="Theme.Projetofinal" parent="Base.Theme.Projetofinal"/>
