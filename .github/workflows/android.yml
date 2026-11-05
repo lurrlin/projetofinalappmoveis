@@ -29,9 +29,11 @@ jobs:
 
       - name: Preparar Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
 
       - name: Instalar as ferramentas do projeto
-        run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
       - name: Preparar Gradle e validar o wrapper
         uses: gradle/actions/setup-gradle@v5
